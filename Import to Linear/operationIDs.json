@@ -1,0 +1,10 @@
+{
+  "f2dcc063202a24bb27350dc7e3afe9494dcef12d1e958db28ed813f6b7441d8b": {
+    "name": "GetTeamIssues",
+    "source": "query GetTeamIssues($teamId: String!, $first: Int, $after: String) {\n  team(id: $teamId) {\n    __typename\n    id\n    issues(first: $first, after: $after) {\n      __typename\n      nodes {\n        __typename\n        id\n        title\n        estimate\n        createdAt\n        updatedAt\n        archivedAt\n        description\n        assignee {\n          __typename\n          id\n          name\n        }\n      }\n    }\n  }\n}"
+  },
+  "94906924c0e9ca92c30dc1bdf346db3433a6a92a06c0184fef95ecf7327db9ff": {
+    "name": "GetTeams",
+    "source": "query GetTeams($first: Int, $after: String) {\n  teams(first: $first, after: $after) {\n    __typename\n    nodes {\n      __typename\n      id\n      name\n    }\n  }\n}"
+  }
+}

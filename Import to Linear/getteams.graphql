@@ -1,0 +1,8 @@
+query GetTeams($first: Int, $after: String) {
+  teams(first: $first, after: $after) {
+    nodes {
+      id
+      name
+    }
+  }
+}
