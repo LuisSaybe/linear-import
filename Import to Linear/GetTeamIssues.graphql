@@ -1,0 +1,20 @@
+query GetTeamIssues($teamId: String!, $first: Int, $after: String) {
+  team(id: $teamId) {
+    id
+    issues(first: $first, after: $after) {
+      nodes {
+        id
+        title
+        estimate
+        createdAt
+        updatedAt
+        archivedAt
+        description
+        assignee {
+          id
+          name
+        }
+      }
+    }
+  }
+}
