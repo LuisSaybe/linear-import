@@ -17,6 +17,8 @@
 		A03223C3258E8FFA00B4F862 /* GetTeamIssues.graphql in Resources */ = {isa = PBXBuildFile; fileRef = A03223C2258E8FFA00B4F862 /* GetTeamIssues.graphql */; };
 		A0C2787C258BDA450040C434 /* CsvUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C2787B258BDA450040C434 /* CsvUtility.swift */; };
 		A0CAD2E225928B71006AE000 /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0CAD2E125928B71006AE000 /* SignInViewModel.swift */; };
+		A0CAD2E62592C0A0006AE000 /* TeamsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0CAD2E52592C0A0006AE000 /* TeamsView.swift */; };
+		A0CAD2E82592C0A9006AE000 /* Team.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0CAD2E72592C0A9006AE000 /* Team.swift */; };
 		A0D60163258AB78800740487 /* Import_to_LinearApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D60162258AB78800740487 /* Import_to_LinearApp.swift */; };
 		A0D60165258AB78800740487 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D60164258AB78800740487 /* ContentView.swift */; };
 		A0D60167258AB78A00740487 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A0D60166258AB78A00740487 /* Assets.xcassets */; };
@@ -45,6 +47,8 @@
 		A03223C2258E8FFA00B4F862 /* GetTeamIssues.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = GetTeamIssues.graphql; sourceTree = "<group>"; };
 		A0C2787B258BDA450040C434 /* CsvUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CsvUtility.swift; sourceTree = "<group>"; };
 		A0CAD2E125928B71006AE000 /* SignInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewModel.swift; sourceTree = "<group>"; };
+		A0CAD2E52592C0A0006AE000 /* TeamsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamsView.swift; sourceTree = "<group>"; };
+		A0CAD2E72592C0A9006AE000 /* Team.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Team.swift; sourceTree = "<group>"; };
 		A0D6015F258AB78800740487 /* Import to Linear.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Import to Linear.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A0D60162258AB78800740487 /* Import_to_LinearApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Import_to_LinearApp.swift; sourceTree = "<group>"; };
 		A0D60164258AB78800740487 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -71,6 +75,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A0CAD2E32592BE76006AE000 /* visual */ = {
+			isa = PBXGroup;
+			children = (
+				A0D60164258AB78800740487 /* ContentView.swift */,
+				A0CAD2E52592C0A0006AE000 /* TeamsView.swift */,
+				A0CAD2E72592C0A9006AE000 /* Team.swift */,
+			);
+			path = visual;
+			sourceTree = "<group>";
+		};
+		A0CAD2E42592BEBA006AE000 /* utility */ = {
+			isa = PBXGroup;
+			children = (
+				A0C2787B258BDA450040C434 /* CsvUtility.swift */,
+			);
+			path = utility;
+			sourceTree = "<group>";
+		};
 		A0D60156258AB78800740487 = {
 			isa = PBXGroup;
 			children = (
@@ -90,11 +112,11 @@
 		A0D60161258AB78800740487 /* Import to Linear */ = {
 			isa = PBXGroup;
 			children = (
+				A0CAD2E42592BEBA006AE000 /* utility */,
+				A0CAD2E32592BE76006AE000 /* visual */,
 				A0D60162258AB78800740487 /* Import_to_LinearApp.swift */,
 				A03223C0258E862600B4F862 /* schema.json */,
-				A0C2787B258BDA450040C434 /* CsvUtility.swift */,
 				A03223BE258E861500B4F862 /* API.swift */,
-				A0D60164258AB78800740487 /* ContentView.swift */,
 				A0D60166258AB78A00740487 /* Assets.xcassets */,
 				A0D6016B258AB78A00740487 /* Info.plist */,
 				A0D6016C258AB78A00740487 /* Import_to_Linear.entitlements */,
@@ -222,7 +244,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A0CAD2E62592C0A0006AE000 /* TeamsView.swift in Sources */,
 				A0C2787C258BDA450040C434 /* CsvUtility.swift in Sources */,
+				A0CAD2E82592C0A9006AE000 /* Team.swift in Sources */,
 				A0D60165258AB78800740487 /* ContentView.swift in Sources */,
 				A03223BF258E861500B4F862 /* API.swift in Sources */,
 				A0D60163258AB78800740487 /* Import_to_LinearApp.swift in Sources */,

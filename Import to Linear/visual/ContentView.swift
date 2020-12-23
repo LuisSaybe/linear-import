@@ -14,6 +14,7 @@ struct ContentView: View {
     var body: some View {
         VStack {
             if let client = applicationState.apolloClient {
+                TeamsView()
                 Button(action: {
                     CsvUtility(client:client).writeTeamIssuesToDownloads(teamId: self.teamId)
                 }, label: {
@@ -44,7 +45,7 @@ struct ContentView: View {
                         if error == nil {
                             let queryItems = URLComponents(string: callbackURL!.absoluteString)?.queryItems
                             let code = queryItems?.filter({ $0.name == "code" }).first?.value
-                            
+
                             AF.request("https://api.linear.app/oauth/token", method: .post, parameters: [
                                 "grant_type": "authorization_code",
                                 "redirect_uri": self.redirectUri,
