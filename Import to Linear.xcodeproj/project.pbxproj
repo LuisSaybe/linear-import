@@ -15,6 +15,11 @@
 		A03223BF258E861500B4F862 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03223BE258E861500B4F862 /* API.swift */; };
 		A03223C1258E862600B4F862 /* schema.json in Resources */ = {isa = PBXBuildFile; fileRef = A03223C0258E862600B4F862 /* schema.json */; };
 		A03223C3258E8FFA00B4F862 /* GetTeamIssues.graphql in Resources */ = {isa = PBXBuildFile; fileRef = A03223C2258E8FFA00B4F862 /* GetTeamIssues.graphql */; };
+		A07EF6202592D5E1001DD2CC /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = A07EF61F2592D5E1001DD2CC /* Store.swift */; };
+		A07EF6222592D63E001DD2CC /* ApplicationReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A07EF6212592D63E001DD2CC /* ApplicationReducer.swift */; };
+		A07EF6242592E019001DD2CC /* TeamsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A07EF6232592E019001DD2CC /* TeamsView.swift */; };
+		A07EF6262592E0CF001DD2CC /* TeamView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A07EF6252592E0CF001DD2CC /* TeamView.swift */; };
+		A07EF6282592E138001DD2CC /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = A07EF6272592E138001DD2CC /* Router.swift */; };
 		A0C2787C258BDA450040C434 /* CsvUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C2787B258BDA450040C434 /* CsvUtility.swift */; };
 		A0CAD2E225928B71006AE000 /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0CAD2E125928B71006AE000 /* SignInViewModel.swift */; };
 		A0D60163258AB78800740487 /* Import_to_LinearApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D60162258AB78800740487 /* Import_to_LinearApp.swift */; };
@@ -43,6 +48,11 @@
 		A03223BE258E861500B4F862 /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		A03223C0258E862600B4F862 /* schema.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = schema.json; sourceTree = "<group>"; };
 		A03223C2258E8FFA00B4F862 /* GetTeamIssues.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = GetTeamIssues.graphql; sourceTree = "<group>"; };
+		A07EF61F2592D5E1001DD2CC /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
+		A07EF6212592D63E001DD2CC /* ApplicationReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationReducer.swift; sourceTree = "<group>"; };
+		A07EF6232592E019001DD2CC /* TeamsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamsView.swift; sourceTree = "<group>"; };
+		A07EF6252592E0CF001DD2CC /* TeamView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamView.swift; sourceTree = "<group>"; };
+		A07EF6272592E138001DD2CC /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		A0C2787B258BDA450040C434 /* CsvUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CsvUtility.swift; sourceTree = "<group>"; };
 		A0CAD2E125928B71006AE000 /* SignInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewModel.swift; sourceTree = "<group>"; };
 		A0D6015F258AB78800740487 /* Import to Linear.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Import to Linear.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -102,6 +112,11 @@
 				A03223BB258E806100B4F862 /* getteams.graphql */,
 				A03223C2258E8FFA00B4F862 /* GetTeamIssues.graphql */,
 				A0CAD2E125928B71006AE000 /* SignInViewModel.swift */,
+				A07EF61F2592D5E1001DD2CC /* Store.swift */,
+				A07EF6212592D63E001DD2CC /* ApplicationReducer.swift */,
+				A07EF6232592E019001DD2CC /* TeamsView.swift */,
+				A07EF6252592E0CF001DD2CC /* TeamView.swift */,
+				A07EF6272592E138001DD2CC /* Router.swift */,
 			);
 			path = "Import to Linear";
 			sourceTree = "<group>";
@@ -224,9 +239,14 @@
 			files = (
 				A0C2787C258BDA450040C434 /* CsvUtility.swift in Sources */,
 				A0D60165258AB78800740487 /* ContentView.swift in Sources */,
+				A07EF6282592E138001DD2CC /* Router.swift in Sources */,
 				A03223BF258E861500B4F862 /* API.swift in Sources */,
+				A07EF6202592D5E1001DD2CC /* Store.swift in Sources */,
+				A07EF6222592D63E001DD2CC /* ApplicationReducer.swift in Sources */,
 				A0D60163258AB78800740487 /* Import_to_LinearApp.swift in Sources */,
 				A0CAD2E225928B71006AE000 /* SignInViewModel.swift in Sources */,
+				A07EF6242592E019001DD2CC /* TeamsView.swift in Sources */,
+				A07EF6262592E0CF001DD2CC /* TeamView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

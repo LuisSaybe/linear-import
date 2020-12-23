@@ -1,19 +1,22 @@
 import SwiftUI
 import Apollo
-
-class ApplicationState: ObservableObject {
-    @Published var apolloClient: ApolloClient? = nil
-}
+import Combine
 
 @main
 struct Import_to_LinearApp: App {
-    var applicationState = ApplicationState()
-    
+    let store = ApplicationStore<ApplicationState, ApplicationAction>(initialState: ApplicationState(
+        apolloClient: nil,
+        teams: [],
+        failedToLoadTeams: false,
+        failedToLogin: false,
+        currentView: ApplicationView.Root
+    ), reducer: applicationReducer)
+
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            Router()
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .environmentObject(applicationState)
+                .environmentObject(self.store)
         }
     }
 }
