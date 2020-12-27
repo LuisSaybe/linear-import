@@ -3,6 +3,7 @@ query GetTeams($first: Int, $after: String) {
     nodes {
       id
       name
+      description
     }
   }
 }

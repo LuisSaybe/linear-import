@@ -11,18 +11,21 @@
 		A03223B5258E6C5000B4F862 /* ApolloWebSocket in Frameworks */ = {isa = PBXBuildFile; productRef = A03223B4258E6C5000B4F862 /* ApolloWebSocket */; };
 		A03223B7258E6C5000B4F862 /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = A03223B6258E6C5000B4F862 /* Apollo */; };
 		A03223B9258E6C5000B4F862 /* ApolloCodegenLib in Frameworks */ = {isa = PBXBuildFile; productRef = A03223B8258E6C5000B4F862 /* ApolloCodegenLib */; };
-		A03223BC258E806100B4F862 /* getteams.graphql in Resources */ = {isa = PBXBuildFile; fileRef = A03223BB258E806100B4F862 /* getteams.graphql */; };
+		A03223BC258E806100B4F862 /* GetTeams.graphql in Resources */ = {isa = PBXBuildFile; fileRef = A03223BB258E806100B4F862 /* GetTeams.graphql */; };
 		A03223BF258E861500B4F862 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03223BE258E861500B4F862 /* API.swift */; };
 		A03223C1258E862600B4F862 /* schema.json in Resources */ = {isa = PBXBuildFile; fileRef = A03223C0258E862600B4F862 /* schema.json */; };
 		A03223C3258E8FFA00B4F862 /* GetTeamIssues.graphql in Resources */ = {isa = PBXBuildFile; fileRef = A03223C2258E8FFA00B4F862 /* GetTeamIssues.graphql */; };
 		A07EF6202592D5E1001DD2CC /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = A07EF61F2592D5E1001DD2CC /* Store.swift */; };
-		A07EF6222592D63E001DD2CC /* ApplicationReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A07EF6212592D63E001DD2CC /* ApplicationReducer.swift */; };
 		A07EF6242592E019001DD2CC /* TeamsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A07EF6232592E019001DD2CC /* TeamsView.swift */; };
 		A07EF6262592E0CF001DD2CC /* TeamView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A07EF6252592E0CF001DD2CC /* TeamView.swift */; };
 		A07EF6282592E138001DD2CC /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = A07EF6272592E138001DD2CC /* Router.swift */; };
-		A0C2787C258BDA450040C434 /* CsvUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C2787B258BDA450040C434 /* CsvUtility.swift */; };
+		A0870F2F25955AF30041FEFB /* Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0870F2E25955AF30041FEFB /* Application.swift */; };
+		A0870F332597C0020041FEFB /* CreateIssue.graphql in Resources */ = {isa = PBXBuildFile; fileRef = A0870F322597C0020041FEFB /* CreateIssue.graphql */; };
+		A0870F362597D2940041FEFB /* PromiseKit in Frameworks */ = {isa = PBXBuildFile; productRef = A0870F352597D2940041FEFB /* PromiseKit */; };
+		A0870F382597F9480041FEFB /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0870F372597F9480041FEFB /* DashboardView.swift */; };
+		A0C2787C258BDA450040C434 /* CsvHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C2787B258BDA450040C434 /* CsvHelper.swift */; };
 		A0CAD2E225928B71006AE000 /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0CAD2E125928B71006AE000 /* SignInViewModel.swift */; };
-		A0D60163258AB78800740487 /* Import_to_LinearApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D60162258AB78800740487 /* Import_to_LinearApp.swift */; };
+		A0D60163258AB78800740487 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D60162258AB78800740487 /* App.swift */; };
 		A0D60165258AB78800740487 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D60164258AB78800740487 /* ContentView.swift */; };
 		A0D60167258AB78A00740487 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A0D60166258AB78A00740487 /* Assets.xcassets */; };
 		A0D6016A258AB78A00740487 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A0D60169258AB78A00740487 /* Preview Assets.xcassets */; };
@@ -44,19 +47,21 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		A03223BB258E806100B4F862 /* getteams.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = getteams.graphql; sourceTree = "<group>"; };
+		A03223BB258E806100B4F862 /* GetTeams.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = GetTeams.graphql; sourceTree = "<group>"; };
 		A03223BE258E861500B4F862 /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		A03223C0258E862600B4F862 /* schema.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = schema.json; sourceTree = "<group>"; };
 		A03223C2258E8FFA00B4F862 /* GetTeamIssues.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = GetTeamIssues.graphql; sourceTree = "<group>"; };
 		A07EF61F2592D5E1001DD2CC /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
-		A07EF6212592D63E001DD2CC /* ApplicationReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationReducer.swift; sourceTree = "<group>"; };
 		A07EF6232592E019001DD2CC /* TeamsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamsView.swift; sourceTree = "<group>"; };
 		A07EF6252592E0CF001DD2CC /* TeamView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamView.swift; sourceTree = "<group>"; };
 		A07EF6272592E138001DD2CC /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
-		A0C2787B258BDA450040C434 /* CsvUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CsvUtility.swift; sourceTree = "<group>"; };
+		A0870F2E25955AF30041FEFB /* Application.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Application.swift; sourceTree = "<group>"; };
+		A0870F322597C0020041FEFB /* CreateIssue.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = CreateIssue.graphql; sourceTree = "<group>"; };
+		A0870F372597F9480041FEFB /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
+		A0C2787B258BDA450040C434 /* CsvHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CsvHelper.swift; sourceTree = "<group>"; };
 		A0CAD2E125928B71006AE000 /* SignInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewModel.swift; sourceTree = "<group>"; };
 		A0D6015F258AB78800740487 /* Import to Linear.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Import to Linear.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		A0D60162258AB78800740487 /* Import_to_LinearApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Import_to_LinearApp.swift; sourceTree = "<group>"; };
+		A0D60162258AB78800740487 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		A0D60164258AB78800740487 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		A0D60166258AB78A00740487 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A0D60169258AB78A00740487 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -74,6 +79,7 @@
 				A0D60175258AC87800740487 /* CSV in Frameworks */,
 				A03223B5258E6C5000B4F862 /* ApolloWebSocket in Frameworks */,
 				A0D60188258AD19000740487 /* Alamofire in Frameworks */,
+				A0870F362597D2940041FEFB /* PromiseKit in Frameworks */,
 				A03223B3258E6C5000B4F862 /* ApolloCore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -81,6 +87,36 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A0870F2D25955AE70041FEFB /* store */ = {
+			isa = PBXGroup;
+			children = (
+				A07EF61F2592D5E1001DD2CC /* Store.swift */,
+				A0870F2E25955AF30041FEFB /* Application.swift */,
+			);
+			path = store;
+			sourceTree = "<group>";
+		};
+		A0870F3025955B020041FEFB /* view */ = {
+			isa = PBXGroup;
+			children = (
+				A0D60164258AB78800740487 /* ContentView.swift */,
+				A0CAD2E125928B71006AE000 /* SignInViewModel.swift */,
+				A07EF6232592E019001DD2CC /* TeamsView.swift */,
+				A07EF6252592E0CF001DD2CC /* TeamView.swift */,
+				A07EF6272592E138001DD2CC /* Router.swift */,
+				A0870F372597F9480041FEFB /* DashboardView.swift */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		A0870F3125955B9E0041FEFB /* helper */ = {
+			isa = PBXGroup;
+			children = (
+				A0C2787B258BDA450040C434 /* CsvHelper.swift */,
+			);
+			path = helper;
+			sourceTree = "<group>";
+		};
 		A0D60156258AB78800740487 = {
 			isa = PBXGroup;
 			children = (
@@ -100,23 +136,19 @@
 		A0D60161258AB78800740487 /* Import to Linear */ = {
 			isa = PBXGroup;
 			children = (
-				A0D60162258AB78800740487 /* Import_to_LinearApp.swift */,
+				A0870F3125955B9E0041FEFB /* helper */,
+				A0870F3025955B020041FEFB /* view */,
+				A0870F2D25955AE70041FEFB /* store */,
+				A0D60162258AB78800740487 /* App.swift */,
 				A03223C0258E862600B4F862 /* schema.json */,
-				A0C2787B258BDA450040C434 /* CsvUtility.swift */,
 				A03223BE258E861500B4F862 /* API.swift */,
-				A0D60164258AB78800740487 /* ContentView.swift */,
 				A0D60166258AB78A00740487 /* Assets.xcassets */,
 				A0D6016B258AB78A00740487 /* Info.plist */,
 				A0D6016C258AB78A00740487 /* Import_to_Linear.entitlements */,
 				A0D60168258AB78A00740487 /* Preview Content */,
-				A03223BB258E806100B4F862 /* getteams.graphql */,
+				A03223BB258E806100B4F862 /* GetTeams.graphql */,
 				A03223C2258E8FFA00B4F862 /* GetTeamIssues.graphql */,
-				A0CAD2E125928B71006AE000 /* SignInViewModel.swift */,
-				A07EF61F2592D5E1001DD2CC /* Store.swift */,
-				A07EF6212592D63E001DD2CC /* ApplicationReducer.swift */,
-				A07EF6232592E019001DD2CC /* TeamsView.swift */,
-				A07EF6252592E0CF001DD2CC /* TeamView.swift */,
-				A07EF6272592E138001DD2CC /* Router.swift */,
+				A0870F322597C0020041FEFB /* CreateIssue.graphql */,
 			);
 			path = "Import to Linear";
 			sourceTree = "<group>";
@@ -154,6 +186,7 @@
 				A03223B4258E6C5000B4F862 /* ApolloWebSocket */,
 				A03223B6258E6C5000B4F862 /* Apollo */,
 				A03223B8258E6C5000B4F862 /* ApolloCodegenLib */,
+				A0870F352597D2940041FEFB /* PromiseKit */,
 			);
 			productName = "Import to Linear";
 			productReference = A0D6015F258AB78800740487 /* Import to Linear.app */;
@@ -186,6 +219,7 @@
 				A0D60173258AC87800740487 /* XCRemoteSwiftPackageReference "CSV.swift" */,
 				A0D60186258AD19000740487 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				A03223B1258E6C5000B4F862 /* XCRemoteSwiftPackageReference "apollo-ios" */,
+				A0870F342597D2940041FEFB /* XCRemoteSwiftPackageReference "PromiseKit" */,
 			);
 			productRefGroup = A0D60160258AB78800740487 /* Products */;
 			projectDirPath = "";
@@ -203,9 +237,10 @@
 			files = (
 				A03223C1258E862600B4F862 /* schema.json in Resources */,
 				A03223C3258E8FFA00B4F862 /* GetTeamIssues.graphql in Resources */,
-				A03223BC258E806100B4F862 /* getteams.graphql in Resources */,
+				A03223BC258E806100B4F862 /* GetTeams.graphql in Resources */,
 				A0D6016A258AB78A00740487 /* Preview Assets.xcassets in Resources */,
 				A0D60167258AB78A00740487 /* Assets.xcassets in Resources */,
+				A0870F332597C0020041FEFB /* CreateIssue.graphql in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -237,13 +272,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A0C2787C258BDA450040C434 /* CsvUtility.swift in Sources */,
+				A0C2787C258BDA450040C434 /* CsvHelper.swift in Sources */,
 				A0D60165258AB78800740487 /* ContentView.swift in Sources */,
+				A0870F2F25955AF30041FEFB /* Application.swift in Sources */,
 				A07EF6282592E138001DD2CC /* Router.swift in Sources */,
 				A03223BF258E861500B4F862 /* API.swift in Sources */,
 				A07EF6202592D5E1001DD2CC /* Store.swift in Sources */,
-				A07EF6222592D63E001DD2CC /* ApplicationReducer.swift in Sources */,
-				A0D60163258AB78800740487 /* Import_to_LinearApp.swift in Sources */,
+				A0870F382597F9480041FEFB /* DashboardView.swift in Sources */,
+				A0D60163258AB78800740487 /* App.swift in Sources */,
 				A0CAD2E225928B71006AE000 /* SignInViewModel.swift in Sources */,
 				A07EF6242592E019001DD2CC /* TeamsView.swift in Sources */,
 				A07EF6262592E0CF001DD2CC /* TeamView.swift in Sources */,
@@ -448,6 +484,14 @@
 				minimumVersion = 0.38.3;
 			};
 		};
+		A0870F342597D2940041FEFB /* XCRemoteSwiftPackageReference "PromiseKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/mxcl/PromiseKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.13.3;
+			};
+		};
 		A0D60173258AC87800740487 /* XCRemoteSwiftPackageReference "CSV.swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/yaslab/CSV.swift.git";
@@ -486,6 +530,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = A03223B1258E6C5000B4F862 /* XCRemoteSwiftPackageReference "apollo-ios" */;
 			productName = ApolloCodegenLib;
+		};
+		A0870F352597D2940041FEFB /* PromiseKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A0870F342597D2940041FEFB /* XCRemoteSwiftPackageReference "PromiseKit" */;
+			productName = PromiseKit;
 		};
 		A0D60174258AC87800740487 /* CSV */ = {
 			isa = XCSwiftPackageProductDependency;

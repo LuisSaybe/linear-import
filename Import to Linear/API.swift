@@ -4,6 +4,113 @@
 import Apollo
 import Foundation
 
+public final class CreateIssueMutation: GraphQLMutation {
+  /// The raw GraphQL definition of this operation.
+  public let operationDefinition: String =
+    """
+    mutation CreateIssue($teamId: String!, $title: String!, $projectId: String, $description: String, $priority: Int) {
+      issueCreate(
+        input: {teamId: $teamId, projectId: $projectId, title: $title, description: $description, priority: $priority}
+      ) {
+        __typename
+        success
+      }
+    }
+    """
+
+  public let operationName: String = "CreateIssue"
+
+  public let operationIdentifier: String? = "fd656055f9d36860e025ac7271800babf07f9d2fea5831af7f4a4fab9f1773a7"
+
+  public var teamId: String
+  public var title: String
+  public var projectId: String?
+  public var description: String?
+  public var priority: Int?
+
+  public init(teamId: String, title: String, projectId: String? = nil, description: String? = nil, priority: Int? = nil) {
+    self.teamId = teamId
+    self.title = title
+    self.projectId = projectId
+    self.description = description
+    self.priority = priority
+  }
+
+  public var variables: GraphQLMap? {
+    return ["teamId": teamId, "title": title, "projectId": projectId, "description": description, "priority": priority]
+  }
+
+  public struct Data: GraphQLSelectionSet {
+    public static let possibleTypes: [String] = ["Mutation"]
+
+    public static var selections: [GraphQLSelection] {
+      return [
+        GraphQLField("issueCreate", arguments: ["input": ["teamId": GraphQLVariable("teamId"), "projectId": GraphQLVariable("projectId"), "title": GraphQLVariable("title"), "description": GraphQLVariable("description"), "priority": GraphQLVariable("priority")]], type: .nonNull(.object(IssueCreate.selections))),
+      ]
+    }
+
+    public private(set) var resultMap: ResultMap
+
+    public init(unsafeResultMap: ResultMap) {
+      self.resultMap = unsafeResultMap
+    }
+
+    public init(issueCreate: IssueCreate) {
+      self.init(unsafeResultMap: ["__typename": "Mutation", "issueCreate": issueCreate.resultMap])
+    }
+
+    /// Creates a new issue.
+    public var issueCreate: IssueCreate {
+      get {
+        return IssueCreate(unsafeResultMap: resultMap["issueCreate"]! as! ResultMap)
+      }
+      set {
+        resultMap.updateValue(newValue.resultMap, forKey: "issueCreate")
+      }
+    }
+
+    public struct IssueCreate: GraphQLSelectionSet {
+      public static let possibleTypes: [String] = ["IssuePayload"]
+
+      public static var selections: [GraphQLSelection] {
+        return [
+          GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+          GraphQLField("success", type: .nonNull(.scalar(Bool.self))),
+        ]
+      }
+
+      public private(set) var resultMap: ResultMap
+
+      public init(unsafeResultMap: ResultMap) {
+        self.resultMap = unsafeResultMap
+      }
+
+      public init(success: Bool) {
+        self.init(unsafeResultMap: ["__typename": "IssuePayload", "success": success])
+      }
+
+      public var __typename: String {
+        get {
+          return resultMap["__typename"]! as! String
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "__typename")
+        }
+      }
+
+      /// Whether the operation was successful.
+      public var success: Bool {
+        get {
+          return resultMap["success"]! as! Bool
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "success")
+        }
+      }
+    }
+  }
+}
+
 public final class GetTeamIssuesQuery: GraphQLQuery {
   /// The raw GraphQL definition of this operation.
   public let operationDefinition: String =
@@ -353,6 +460,7 @@ public final class GetTeamsQuery: GraphQLQuery {
           __typename
           id
           name
+          description
         }
       }
     }
@@ -360,7 +468,7 @@ public final class GetTeamsQuery: GraphQLQuery {
 
   public let operationName: String = "GetTeams"
 
-  public let operationIdentifier: String? = "94906924c0e9ca92c30dc1bdf346db3433a6a92a06c0184fef95ecf7327db9ff"
+  public let operationIdentifier: String? = "d31296a981ec59c904e044b4ae9f2031e4da75b46f3b32a22bb9c05686b79152"
 
   public var first: Int?
   public var after: String?
@@ -449,6 +557,7 @@ public final class GetTeamsQuery: GraphQLQuery {
             GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
             GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
             GraphQLField("name", type: .nonNull(.scalar(String.self))),
+            GraphQLField("description", type: .scalar(String.self)),
           ]
         }
 
@@ -458,8 +567,8 @@ public final class GetTeamsQuery: GraphQLQuery {
           self.resultMap = unsafeResultMap
         }
 
-        public init(id: GraphQLID, name: String) {
-          self.init(unsafeResultMap: ["__typename": "Team", "id": id, "name": name])
+        public init(id: GraphQLID, name: String, description: String? = nil) {
+          self.init(unsafeResultMap: ["__typename": "Team", "id": id, "name": name, "description": description])
         }
 
         public var __typename: String {
@@ -488,6 +597,16 @@ public final class GetTeamsQuery: GraphQLQuery {
           }
           set {
             resultMap.updateValue(newValue, forKey: "name")
+          }
+        }
+
+        /// The team's description.
+        public var description: String? {
+          get {
+            return resultMap["description"] as? String
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "description")
           }
         }
       }

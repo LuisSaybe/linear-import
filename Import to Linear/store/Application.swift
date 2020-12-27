@@ -3,7 +3,7 @@ import Combine
 
 enum ApplicationView {
     case Root
-    case Teams
+    case Dashboard
 }
 
 enum ApplicationAction {
@@ -12,14 +12,20 @@ enum ApplicationAction {
     case setFailedToLoadTeams(data: Bool)
     case setFailedToLogin(data: Bool)
     case setView(data: ApplicationView)
+    case setTeamDownloadingIssues(teamId: String, downloading: Bool)
+    case setTeamUploadingIssues(teamId: String, uploading: Bool)
+    case setCurrentlySelectedTeamId(teamId: String?)
 }
 
 struct ApplicationState {
     var apolloClient: ApolloClient?
+    var currentView: ApplicationView
     var teams: [GetTeamsQuery.Data.Team.Node]
     var failedToLoadTeams: Bool
     var failedToLogin: Bool
-    var currentView: ApplicationView
+    var teamIdDownloadingIssues: Set<String>
+    var teamIdUploadingIssues: Set<String>
+    var currentSelectedTeamId: String?
 }
 
 func applicationReducer(
@@ -37,6 +43,21 @@ func applicationReducer(
             state.failedToLogin = data
         case let .setView(data):
             state.currentView = data
+        case let.setTeamDownloadingIssues(teamId, downloading):
+            if downloading {
+                state.teamIdDownloadingIssues.insert(teamId)
+            } else {
+                state.teamIdDownloadingIssues.remove(teamId)
+            }
+        case let .setTeamUploadingIssues(teamId, uploading):
+            if uploading {
+                state.teamIdUploadingIssues.insert(teamId)
+            } else {
+                state.teamIdUploadingIssues.remove(teamId)
+            }
+        case let .setCurrentlySelectedTeamId(teamId):
+            state.currentSelectedTeamId = teamId
     }
     return nil
 }
+

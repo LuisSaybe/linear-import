@@ -1,10 +1,14 @@
 {
+  "fd656055f9d36860e025ac7271800babf07f9d2fea5831af7f4a4fab9f1773a7": {
+    "name": "CreateIssue",
+    "source": "mutation CreateIssue($teamId: String!, $title: String!, $projectId: String, $description: String, $priority: Int) {\n  issueCreate(\n    input: {teamId: $teamId, projectId: $projectId, title: $title, description: $description, priority: $priority}\n  ) {\n    __typename\n    success\n  }\n}"
+  },
   "f2dcc063202a24bb27350dc7e3afe9494dcef12d1e958db28ed813f6b7441d8b": {
     "name": "GetTeamIssues",
     "source": "query GetTeamIssues($teamId: String!, $first: Int, $after: String) {\n  team(id: $teamId) {\n    __typename\n    id\n    issues(first: $first, after: $after) {\n      __typename\n      nodes {\n        __typename\n        id\n        title\n        estimate\n        createdAt\n        updatedAt\n        archivedAt\n        description\n        assignee {\n          __typename\n          id\n          name\n        }\n      }\n    }\n  }\n}"
   },
-  "94906924c0e9ca92c30dc1bdf346db3433a6a92a06c0184fef95ecf7327db9ff": {
+  "d31296a981ec59c904e044b4ae9f2031e4da75b46f3b32a22bb9c05686b79152": {
     "name": "GetTeams",
-    "source": "query GetTeams($first: Int, $after: String) {\n  teams(first: $first, after: $after) {\n    __typename\n    nodes {\n      __typename\n      id\n      name\n    }\n  }\n}"
+    "source": "query GetTeams($first: Int, $after: String) {\n  teams(first: $first, after: $after) {\n    __typename\n    nodes {\n      __typename\n      id\n      name\n      description\n    }\n  }\n}"
   }
 }

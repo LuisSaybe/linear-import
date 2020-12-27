@@ -6,10 +6,10 @@ import Apollo
 struct ContentView: View {
     @EnvironmentObject var store: ApplicationStore<ApplicationState, ApplicationAction>
     let teamId = "c4e41f33-8e10-43d5-85ef-03ecadb94d06"
-    let clientId = "434ba63bb8d80434624f83cf47c82e71"
+    let clientId = "41555b797aea67b9144f1fe11c2469e2"
     let redirectScheme = "com.luissaybe.linear-tools"
     let redirectUri = "com.luissaybe.linear-tools://oauth-redirect"
-    let clientSecret = "fcf2418b8b8ac66d28eb63a11b72f53f"
+    let clientSecret = "bfade7f1dd7399e0b97d56eedc7c6098"
 
     var body: some View {
         VStack {
@@ -38,7 +38,7 @@ struct ContentView: View {
                                         "authorization": "Bearer \(accessToken)"
                                     ])
                                     self.store.send(.setApolloClient(data: ApolloClient(networkTransport: requestChain, store: store)))
-                                    self.store.send(.setView(data: ApplicationView.Teams))
+                                    self.store.send(.setView(data: ApplicationView.Dashboard))
                                 case .failure(let error):
                                     print("Request failed with error: \(error)")
                             }
