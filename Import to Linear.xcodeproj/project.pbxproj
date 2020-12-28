@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A02F60D1259960A8008AB9EA /* TeamScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A02F60D0259960A8008AB9EA /* TeamScrollView.swift */; };
+		A02F60D3259960EA008AB9EA /* TeamWorkflowHome.swift in Sources */ = {isa = PBXBuildFile; fileRef = A02F60D2259960EA008AB9EA /* TeamWorkflowHome.swift */; };
+		A02F60D525996337008AB9EA /* ChooseDirectoryStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = A02F60D425996337008AB9EA /* ChooseDirectoryStep.swift */; };
+		A02F60D725996410008AB9EA /* ChooseUploadFileStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = A02F60D625996410008AB9EA /* ChooseUploadFileStep.swift */; };
+		A02F60D9259966C3008AB9EA /* DownloadProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = A02F60D8259966C3008AB9EA /* DownloadProgress.swift */; };
+		A02F60DB259966F0008AB9EA /* UploadProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = A02F60DA259966F0008AB9EA /* UploadProgress.swift */; };
 		A03223B3258E6C5000B4F862 /* ApolloCore in Frameworks */ = {isa = PBXBuildFile; productRef = A03223B2258E6C5000B4F862 /* ApolloCore */; };
 		A03223B5258E6C5000B4F862 /* ApolloWebSocket in Frameworks */ = {isa = PBXBuildFile; productRef = A03223B4258E6C5000B4F862 /* ApolloWebSocket */; };
 		A03223B7258E6C5000B4F862 /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = A03223B6258E6C5000B4F862 /* Apollo */; };
@@ -47,6 +53,12 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		A02F60D0259960A8008AB9EA /* TeamScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamScrollView.swift; sourceTree = "<group>"; };
+		A02F60D2259960EA008AB9EA /* TeamWorkflowHome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamWorkflowHome.swift; sourceTree = "<group>"; };
+		A02F60D425996337008AB9EA /* ChooseDirectoryStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseDirectoryStep.swift; sourceTree = "<group>"; };
+		A02F60D625996410008AB9EA /* ChooseUploadFileStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseUploadFileStep.swift; sourceTree = "<group>"; };
+		A02F60D8259966C3008AB9EA /* DownloadProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadProgress.swift; sourceTree = "<group>"; };
+		A02F60DA259966F0008AB9EA /* UploadProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadProgress.swift; sourceTree = "<group>"; };
 		A03223BB258E806100B4F862 /* GetTeams.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = GetTeams.graphql; sourceTree = "<group>"; };
 		A03223BE258E861500B4F862 /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		A03223C0258E862600B4F862 /* schema.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = schema.json; sourceTree = "<group>"; };
@@ -105,6 +117,12 @@
 				A07EF6252592E0CF001DD2CC /* TeamView.swift */,
 				A07EF6272592E138001DD2CC /* Router.swift */,
 				A0870F372597F9480041FEFB /* DashboardView.swift */,
+				A02F60D0259960A8008AB9EA /* TeamScrollView.swift */,
+				A02F60D2259960EA008AB9EA /* TeamWorkflowHome.swift */,
+				A02F60D425996337008AB9EA /* ChooseDirectoryStep.swift */,
+				A02F60D625996410008AB9EA /* ChooseUploadFileStep.swift */,
+				A02F60D8259966C3008AB9EA /* DownloadProgress.swift */,
+				A02F60DA259966F0008AB9EA /* UploadProgress.swift */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -272,16 +290,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A02F60D1259960A8008AB9EA /* TeamScrollView.swift in Sources */,
 				A0C2787C258BDA450040C434 /* CsvHelper.swift in Sources */,
 				A0D60165258AB78800740487 /* ContentView.swift in Sources */,
 				A0870F2F25955AF30041FEFB /* Application.swift in Sources */,
 				A07EF6282592E138001DD2CC /* Router.swift in Sources */,
+				A02F60DB259966F0008AB9EA /* UploadProgress.swift in Sources */,
 				A03223BF258E861500B4F862 /* API.swift in Sources */,
 				A07EF6202592D5E1001DD2CC /* Store.swift in Sources */,
+				A02F60D3259960EA008AB9EA /* TeamWorkflowHome.swift in Sources */,
 				A0870F382597F9480041FEFB /* DashboardView.swift in Sources */,
 				A0D60163258AB78800740487 /* App.swift in Sources */,
+				A02F60D525996337008AB9EA /* ChooseDirectoryStep.swift in Sources */,
 				A0CAD2E225928B71006AE000 /* SignInViewModel.swift in Sources */,
 				A07EF6242592E019001DD2CC /* TeamsView.swift in Sources */,
+				A02F60D725996410008AB9EA /* ChooseUploadFileStep.swift in Sources */,
+				A02F60D9259966C3008AB9EA /* DownloadProgress.swift in Sources */,
 				A07EF6262592E0CF001DD2CC /* TeamView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

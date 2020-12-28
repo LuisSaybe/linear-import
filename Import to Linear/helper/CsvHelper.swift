@@ -61,7 +61,7 @@ class CSVHelper {
         }
     }
 
-    func writeTeamIdsToURL(url: URL, teamId: String, completionHandler: @escaping (Result<CompletionInformation, WriteIssuesError>) -> Void) {
+    func writeTeamIssuesToURL(url: URL, teamId: String, onUpdate: @escaping (CompletionInformation) -> Void, completionHandler: @escaping (Result<CompletionInformation, WriteIssuesError>) -> Void) {
         guard let stream = OutputStream(url: url, append: true) else {
             completionHandler(.failure(.unableToCreateStream))
             return
@@ -75,7 +75,7 @@ class CSVHelper {
             completionHandler(.failure(.unableToCreateWriter))
             return
         }
-
+        
         do {
             try csv.write(row: ["id", "title", "description", "estimate"])
         } catch {
@@ -101,6 +101,11 @@ class CSVHelper {
             } catch {
                 failureCount += 1
             }
+            
+            onUpdate(CompletionInformation(
+                failureCount: failureCount,
+                successCount: successCount
+            ))
         }, completionHandler: { result in
             switch result {
                 case .success:
@@ -155,7 +160,7 @@ class CSVHelper {
         return result;
     }
 
-    func uploadToLinearTeam(teamId : String, url: URL, completionHandler: @escaping (Result<CompletionInformation, UploadErrors>) -> Void) {
+    func uploadToLinearTeam(teamId : String, url: URL, onUpdate: @escaping (CompletionInformation) -> Void, completionHandler: @escaping (Result<CompletionInformation, UploadErrors>) -> Void) {
         let stream = InputStream(url: url)!
         let reader: CSVReader
 
@@ -171,7 +176,7 @@ class CSVHelper {
 
         let titleRows = getRowsHeaderCellsWithSimilarValue(reader: reader, target: "title")
         let descriptionKey = getRowsHeaderCellsWithSimilarValue(reader: reader, target: "description").first
-        
+
         if titleRows.count != 1 {
             completionHandler(.failure(.missingUniqueTitleColumn))
             return
@@ -187,9 +192,9 @@ class CSVHelper {
             }
 
             let title = reader[titleRows.first ?? "title"]
-            // let description = descriptionKey == nil ? "" : reader[descriptionKey!]
+            let description = descriptionKey == nil ? "" : reader[descriptionKey!]
 
-            self.client.perform(mutation: CreateIssueMutation(teamId: teamId, title: title!)) { result in
+            self.client.perform(mutation: CreateIssueMutation(teamId: teamId, title: title!, description: description)) { result in
                 switch result {
                     case .success(let result):
                         if let errors = result.errors {
@@ -201,6 +206,11 @@ class CSVHelper {
                     case .failure:
                         failureCount += 1
                 }
+
+                onUpdate(CompletionInformation(
+                    failureCount: failureCount,
+                    successCount: successCount
+                ))
                 
                 processNextRow(reader: reader)
             }

@@ -5,37 +5,53 @@ struct TeamsView: View {
 
     func onAppear() {
         if let client = self.store.state.apolloClient {
-            client.fetch(query: GetTeamsQuery()) { response in
+            self.store.send(.setIsLoadingTeams(data: true))
+            self.store.send(.setFailedToLoadTeams(data: false))
+
+            client.fetch(query: GetTeamsQuery(first: 100)) { response in
                 switch response {
                     case .success(let result):
                         if let data = result.data {
-                            self.store.send(.setFailedToLoadTeams(data: false))
                             self.store.send(.setTeams(data: data.teams.nodes))
+                        } else {
+                            self.store.send(.setFailedToLoadTeams(data: true))
                         }
                     case .failure:
                         self.store.send(.setFailedToLoadTeams(data: true))
                 }
+
+                self.store.send(.setIsLoadingTeams(data: false))
             }
         }
     }
 
     var body: some View {
-        VStack(alignment: .leading) {
-            ForEach(self.store.state.teams, id: \.id) { team in
-                Button(action: {
-                    self.store.send(.setCurrentlySelectedTeamId(teamId: team.id))
-                }) {
-                    VStack(alignment: .leading) {
-                        Text(team.name).font(.title3).lineLimit(1).padding().frame(maxWidth:.infinity, alignment: .leading)
-                        if let description = team.description {
-                            Text(description).font(.subheadline).lineLimit(2).padding()
-                        }
-                    }.background(Color.red)
+        if self.store.state.isLoadingTeams && self.store.state.teams.isEmpty {
+            ProgressView()
+                .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
+                .onAppear(perform: self.onAppear)
+        } else if self.store.state.failedToLoadTeams {
+            VStack(alignment: .leading) {
+                Text("Sorry, we were not able to load your teams").foregroundColor(.red)
+                Button(action: self.onAppear) {
+                    Text("Reload teams")
                 }
-                .buttonStyle(PlainButtonStyle())
-                .background(self.store.state.currentSelectedTeamId == team.id ? Color.blue : Color.clear)
+                Spacer()
             }
+                .frame(minHeight: 0, maxHeight: .infinity)
+                .padding()
+        } else if self.store.state.teams.isEmpty {
+            VStack(alignment: .leading) {
+                Text("Sorry, it appears you don't have any teams.")
+                Text("Try adding teams in your linear account.").padding(.top, 10)
+                Spacer()
+            }
+                .frame(minHeight: 0, maxHeight: .infinity)
+                .padding()
+                .onAppear(perform: self.onAppear)
+        } else {
+            TeamsScrollView()
+                .onAppear(perform: self.onAppear)
         }
-        .onAppear(perform: self.onAppear)
     }
 }

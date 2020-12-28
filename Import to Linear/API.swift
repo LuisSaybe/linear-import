@@ -8,10 +8,8 @@ public final class CreateIssueMutation: GraphQLMutation {
   /// The raw GraphQL definition of this operation.
   public let operationDefinition: String =
     """
-    mutation CreateIssue($teamId: String!, $title: String!, $projectId: String, $description: String, $priority: Int) {
-      issueCreate(
-        input: {teamId: $teamId, projectId: $projectId, title: $title, description: $description, priority: $priority}
-      ) {
+    mutation CreateIssue($teamId: String!, $title: String!, $description: String) {
+      issueCreate(input: {teamId: $teamId, title: $title, description: $description}) {
         __typename
         success
       }
@@ -20,24 +18,20 @@ public final class CreateIssueMutation: GraphQLMutation {
 
   public let operationName: String = "CreateIssue"
 
-  public let operationIdentifier: String? = "fd656055f9d36860e025ac7271800babf07f9d2fea5831af7f4a4fab9f1773a7"
+  public let operationIdentifier: String? = "d7abc1c56bcdf755c8c656aac82cf2394f2b5a8cdd941715a6552353526f8842"
 
   public var teamId: String
   public var title: String
-  public var projectId: String?
   public var description: String?
-  public var priority: Int?
 
-  public init(teamId: String, title: String, projectId: String? = nil, description: String? = nil, priority: Int? = nil) {
+  public init(teamId: String, title: String, description: String? = nil) {
     self.teamId = teamId
     self.title = title
-    self.projectId = projectId
     self.description = description
-    self.priority = priority
   }
 
   public var variables: GraphQLMap? {
-    return ["teamId": teamId, "title": title, "projectId": projectId, "description": description, "priority": priority]
+    return ["teamId": teamId, "title": title, "description": description]
   }
 
   public struct Data: GraphQLSelectionSet {
@@ -45,7 +39,7 @@ public final class CreateIssueMutation: GraphQLMutation {
 
     public static var selections: [GraphQLSelection] {
       return [
-        GraphQLField("issueCreate", arguments: ["input": ["teamId": GraphQLVariable("teamId"), "projectId": GraphQLVariable("projectId"), "title": GraphQLVariable("title"), "description": GraphQLVariable("description"), "priority": GraphQLVariable("priority")]], type: .nonNull(.object(IssueCreate.selections))),
+        GraphQLField("issueCreate", arguments: ["input": ["teamId": GraphQLVariable("teamId"), "title": GraphQLVariable("title"), "description": GraphQLVariable("description")]], type: .nonNull(.object(IssueCreate.selections))),
       ]
     }
 
@@ -118,7 +112,6 @@ public final class GetTeamIssuesQuery: GraphQLQuery {
     query GetTeamIssues($teamId: String!, $first: Int, $after: String) {
       team(id: $teamId) {
         __typename
-        id
         issues(first: $first, after: $after) {
           __typename
           nodes {
@@ -143,7 +136,7 @@ public final class GetTeamIssuesQuery: GraphQLQuery {
 
   public let operationName: String = "GetTeamIssues"
 
-  public let operationIdentifier: String? = "f2dcc063202a24bb27350dc7e3afe9494dcef12d1e958db28ed813f6b7441d8b"
+  public let operationIdentifier: String? = "e1f35979e48c2a297b441d7a4f45f86134c2ee0820da6c44ab82fde4ca49d8ff"
 
   public var teamId: String
   public var first: Int?
@@ -194,7 +187,6 @@ public final class GetTeamIssuesQuery: GraphQLQuery {
       public static var selections: [GraphQLSelection] {
         return [
           GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
-          GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
           GraphQLField("issues", arguments: ["first": GraphQLVariable("first"), "after": GraphQLVariable("after")], type: .nonNull(.object(Issue.selections))),
         ]
       }
@@ -205,8 +197,8 @@ public final class GetTeamIssuesQuery: GraphQLQuery {
         self.resultMap = unsafeResultMap
       }
 
-      public init(id: GraphQLID, issues: Issue) {
-        self.init(unsafeResultMap: ["__typename": "Team", "id": id, "issues": issues.resultMap])
+      public init(issues: Issue) {
+        self.init(unsafeResultMap: ["__typename": "Team", "issues": issues.resultMap])
       }
 
       public var __typename: String {
@@ -215,16 +207,6 @@ public final class GetTeamIssuesQuery: GraphQLQuery {
         }
         set {
           resultMap.updateValue(newValue, forKey: "__typename")
-        }
-      }
-
-      /// The unique identifier of the entity.
-      public var id: GraphQLID {
-        get {
-          return resultMap["id"]! as! GraphQLID
-        }
-        set {
-          resultMap.updateValue(newValue, forKey: "id")
         }
       }
 

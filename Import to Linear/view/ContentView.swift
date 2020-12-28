@@ -9,7 +9,7 @@ struct ContentView: View {
     let clientId = "41555b797aea67b9144f1fe11c2469e2"
     let redirectScheme = "com.luissaybe.linear-tools"
     let redirectUri = "com.luissaybe.linear-tools://oauth-redirect"
-    let clientSecret = "bfade7f1dd7399e0b97d56eedc7c6098"
+    let clientSecret = ""
 
     var body: some View {
         VStack {

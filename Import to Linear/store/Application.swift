@@ -1,4 +1,5 @@
 import Apollo
+import Foundation
 import Combine
 
 enum ApplicationView {
@@ -6,22 +7,43 @@ enum ApplicationView {
     case Dashboard
 }
 
+enum WorkflowStep {
+    case Start
+    
+    case UploadStart
+    case UploadProgress
+    
+    case DownloadStart
+    case DownloadProgress
+}
+
 enum ApplicationAction {
     case setApolloClient(data: ApolloClient?)
     case setTeams(data: [GetTeamsQuery.Data.Team.Node])
     case setFailedToLoadTeams(data: Bool)
     case setFailedToLogin(data: Bool)
+    case setIsLoadingTeams(data: Bool)
     case setView(data: ApplicationView)
+    case setWorkflowStep(data: WorkflowStep)
     case setTeamDownloadingIssues(teamId: String, downloading: Bool)
     case setTeamUploadingIssues(teamId: String, uploading: Bool)
     case setCurrentlySelectedTeamId(teamId: String?)
+    case setDownloadUrl(url: URL?)
+    case setUploadCsvUrl(url: URL?)
 }
 
 struct ApplicationState {
     var apolloClient: ApolloClient?
     var currentView: ApplicationView
     var teams: [GetTeamsQuery.Data.Team.Node]
+    
+    var workflowStep: WorkflowStep
+    var downloadUrl: URL?
+    var uploadCsvUrl: URL?
+    
     var failedToLoadTeams: Bool
+    var isLoadingTeams: Bool
+    
     var failedToLogin: Bool
     var teamIdDownloadingIssues: Set<String>
     var teamIdUploadingIssues: Set<String>
@@ -41,8 +63,16 @@ func applicationReducer(
             state.failedToLoadTeams = data
         case let .setFailedToLogin(data):
             state.failedToLogin = data
+        case let .setIsLoadingTeams(data):
+            state.isLoadingTeams = data
         case let .setView(data):
             state.currentView = data
+        case let .setWorkflowStep(data):
+            state.workflowStep = data
+        case let .setDownloadUrl(data):
+            state.downloadUrl = data
+        case let .setUploadCsvUrl(data):
+            state.uploadCsvUrl = data
         case let.setTeamDownloadingIssues(teamId, downloading):
             if downloading {
                 state.teamIdDownloadingIssues.insert(teamId)

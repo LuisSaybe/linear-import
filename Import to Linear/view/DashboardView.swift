@@ -5,13 +5,12 @@ struct DashboardView: View {
 
     var body: some View {
         return HStack {
-            ScrollView {
-                VStack(alignment: .leading) {
-                    Text("My Linear Teams")
-                        .padding()
-                    Divider()
-                    TeamsView()
-                }
+            VStack(alignment: .leading) {
+                Text("My Linear Teams")
+                    .padding()
+                    .font(.title)
+                Divider()
+                TeamsView()
             }
             .frame(minWidth: 0, maxWidth: 300)
             Divider()
@@ -19,7 +18,8 @@ struct DashboardView: View {
                 TeamView(teamId: selectedTeamId)
                     .frame(minWidth: 0, maxWidth: .infinity)
             } else {
-                Text("Select a team")
+                Text("Select a team to start")
+                    .font(.title2)
                     .frame(minWidth: 1, maxWidth: .infinity)
             }
         }

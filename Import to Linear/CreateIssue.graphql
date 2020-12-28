@@ -1,16 +1,12 @@
 mutation CreateIssue(
     $teamId: String!,
     $title: String!,
-    $projectId: String,
     $description: String,
-    $priority: Int
 ) {
     issueCreate(input: {
         teamId: $teamId,
-        projectId: $projectId,
         title: $title,
-        description: $description,
-        priority: $priority
+        description: $description
     }) {
         success
     }

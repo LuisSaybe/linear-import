@@ -5,17 +5,20 @@ import Combine
 let store = ApolloStore(cache: InMemoryNormalizedCache())
 let provider = LegacyInterceptorProvider(store: store)
 let requestChain = RequestChainNetworkTransport(interceptorProvider: provider, endpointURL: URL(string: "https://api.linear.app/graphql")!, additionalHeaders: [
-    "authorization": "Bearer b233c6aefcf4c1e3a68a95aea05b31e829e6a764869a759a89463b21244d867f"
+    "authorization": "Bearer b"
 ])
 let client = ApolloClient(networkTransport: requestChain, store: store)
 
 @main
 struct Application: App {
+    @Environment(\.colorScheme) var colorScheme
     let store = ApplicationStore<ApplicationState, ApplicationAction>(initialState: ApplicationState(
         apolloClient: client,
-        currentView: ApplicationView.Dashboard,
+        currentView: .Dashboard,
         teams: [],
+        workflowStep: .Start,
         failedToLoadTeams: false,
+        isLoadingTeams: false,
         failedToLogin: false,
         teamIdDownloadingIssues: [],
         teamIdUploadingIssues: []
