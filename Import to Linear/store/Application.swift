@@ -2,6 +2,21 @@ import Apollo
 import Foundation
 import Combine
 
+struct CompletionInformation {
+    var failureCount: Int
+    var successCount: Int
+}
+
+struct TeamViewState {
+    let step: WorkflowStep
+    let isDownloading: Bool?
+    let downloadCompletionInformation: CompletionInformation
+    let isUploading: Bool?
+    let uploadCompletionInformation: CompletionInformation
+    let downloadUrl: URL?
+    let uploadUrl: URL?
+}
+
 enum ApplicationView {
     case Root
     case Dashboard
@@ -9,7 +24,7 @@ enum ApplicationView {
 
 enum WorkflowStep {
     case Start
-    
+
     case UploadStart
     case UploadProgress
     
@@ -24,12 +39,8 @@ enum ApplicationAction {
     case setFailedToLogin(data: Bool)
     case setIsLoadingTeams(data: Bool)
     case setView(data: ApplicationView)
-    case setWorkflowStep(data: WorkflowStep)
-    case setTeamDownloadingIssues(teamId: String, downloading: Bool)
-    case setTeamUploadingIssues(teamId: String, uploading: Bool)
     case setCurrentlySelectedTeamId(teamId: String?)
-    case setDownloadUrl(url: URL?)
-    case setUploadCsvUrl(url: URL?)
+    case updateTeamViewState(teamId: String, data: TeamViewState)
 }
 
 struct ApplicationState {
@@ -37,16 +48,12 @@ struct ApplicationState {
     var currentView: ApplicationView
     var teams: [GetTeamsQuery.Data.Team.Node]
     
-    var workflowStep: WorkflowStep
-    var downloadUrl: URL?
-    var uploadCsvUrl: URL?
-    
+    var teamViewState: [String : TeamViewState]
+
     var failedToLoadTeams: Bool
     var isLoadingTeams: Bool
     
     var failedToLogin: Bool
-    var teamIdDownloadingIssues: Set<String>
-    var teamIdUploadingIssues: Set<String>
     var currentSelectedTeamId: String?
 }
 
@@ -59,6 +66,20 @@ func applicationReducer(
             state.apolloClient = client
         case let .setTeams(teams):
             state.teams = teams
+
+            for team in teams {
+                if state.teamViewState[team.id] == nil {
+                    state.teamViewState[team.id] = TeamViewState(
+                        step: .Start,
+                        isDownloading: nil,
+                        downloadCompletionInformation: CompletionInformation(failureCount: 0, successCount: 0),
+                        isUploading: nil,
+                        uploadCompletionInformation: CompletionInformation(failureCount: 0, successCount: 0),
+                        downloadUrl: nil,
+                        uploadUrl: nil
+                    )
+                }
+            }
         case let .setFailedToLoadTeams(data):
             state.failedToLoadTeams = data
         case let .setFailedToLogin(data):
@@ -67,26 +88,10 @@ func applicationReducer(
             state.isLoadingTeams = data
         case let .setView(data):
             state.currentView = data
-        case let .setWorkflowStep(data):
-            state.workflowStep = data
-        case let .setDownloadUrl(data):
-            state.downloadUrl = data
-        case let .setUploadCsvUrl(data):
-            state.uploadCsvUrl = data
-        case let.setTeamDownloadingIssues(teamId, downloading):
-            if downloading {
-                state.teamIdDownloadingIssues.insert(teamId)
-            } else {
-                state.teamIdDownloadingIssues.remove(teamId)
-            }
-        case let .setTeamUploadingIssues(teamId, uploading):
-            if uploading {
-                state.teamIdUploadingIssues.insert(teamId)
-            } else {
-                state.teamIdUploadingIssues.remove(teamId)
-            }
         case let .setCurrentlySelectedTeamId(teamId):
             state.currentSelectedTeamId = teamId
+        case let .updateTeamViewState(teamId, data):            
+            state.teamViewState[teamId] = data
     }
     return nil
 }

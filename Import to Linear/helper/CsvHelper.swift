@@ -3,11 +3,6 @@ import Foundation
 import Apollo
 import AuthenticationServices
 
-struct CompletionInformation {
-    var failureCount: Int
-    var successCount: Int
-}
-
 enum CreateCSVError : Error {
     case unableToCreateFile
     case userDecline
@@ -75,7 +70,7 @@ class CSVHelper {
             completionHandler(.failure(.unableToCreateWriter))
             return
         }
-        
+
         do {
             try csv.write(row: ["id", "title", "description", "estimate"])
         } catch {

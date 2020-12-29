@@ -2,12 +2,11 @@ import SwiftUI
 
 struct TeamsScrollView: View {
     @EnvironmentObject var store: ApplicationStore<ApplicationState, ApplicationAction>
-    
+
     var body: some View {
         ScrollView {
             ForEach(self.store.state.teams, id: \.id) { team in
                 Button(action: {
-                    self.store.send(.setWorkflowStep(data: .Start))
                     self.store.send(.setCurrentlySelectedTeamId(teamId: team.id))
                 }) {
                     VStack(alignment: .leading) {

@@ -32,7 +32,7 @@
 		A0C2787C258BDA450040C434 /* CsvHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C2787B258BDA450040C434 /* CsvHelper.swift */; };
 		A0CAD2E225928B71006AE000 /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0CAD2E125928B71006AE000 /* SignInViewModel.swift */; };
 		A0D60163258AB78800740487 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D60162258AB78800740487 /* App.swift */; };
-		A0D60165258AB78800740487 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D60164258AB78800740487 /* ContentView.swift */; };
+		A0D60165258AB78800740487 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D60164258AB78800740487 /* LoginView.swift */; };
 		A0D60167258AB78A00740487 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A0D60166258AB78A00740487 /* Assets.xcassets */; };
 		A0D6016A258AB78A00740487 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A0D60169258AB78A00740487 /* Preview Assets.xcassets */; };
 		A0D60175258AC87800740487 /* CSV in Frameworks */ = {isa = PBXBuildFile; productRef = A0D60174258AC87800740487 /* CSV */; };
@@ -74,7 +74,7 @@
 		A0CAD2E125928B71006AE000 /* SignInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewModel.swift; sourceTree = "<group>"; };
 		A0D6015F258AB78800740487 /* Import to Linear.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Import to Linear.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A0D60162258AB78800740487 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
-		A0D60164258AB78800740487 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		A0D60164258AB78800740487 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		A0D60166258AB78A00740487 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A0D60169258AB78A00740487 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		A0D6016B258AB78A00740487 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -111,7 +111,7 @@
 		A0870F3025955B020041FEFB /* view */ = {
 			isa = PBXGroup;
 			children = (
-				A0D60164258AB78800740487 /* ContentView.swift */,
+				A0D60164258AB78800740487 /* LoginView.swift */,
 				A0CAD2E125928B71006AE000 /* SignInViewModel.swift */,
 				A07EF6232592E019001DD2CC /* TeamsView.swift */,
 				A07EF6252592E0CF001DD2CC /* TeamView.swift */,
@@ -292,7 +292,7 @@
 			files = (
 				A02F60D1259960A8008AB9EA /* TeamScrollView.swift in Sources */,
 				A0C2787C258BDA450040C434 /* CsvHelper.swift in Sources */,
-				A0D60165258AB78800740487 /* ContentView.swift in Sources */,
+				A0D60165258AB78800740487 /* LoginView.swift in Sources */,
 				A0870F2F25955AF30041FEFB /* Application.swift in Sources */,
 				A07EF6282592E138001DD2CC /* Router.swift in Sources */,
 				A02F60DB259966F0008AB9EA /* UploadProgress.swift in Sources */,

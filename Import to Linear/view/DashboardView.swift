@@ -14,13 +14,13 @@ struct DashboardView: View {
             }
             .frame(minWidth: 0, maxWidth: 300)
             Divider()
-            if let selectedTeamId = store.state.currentSelectedTeamId {
-                TeamView(teamId: selectedTeamId)
-                    .frame(minWidth: 0, maxWidth: .infinity)
-            } else {
+            if store.state.currentSelectedTeamId == nil {
                 Text("Select a team to start")
                     .font(.title2)
                     .frame(minWidth: 1, maxWidth: .infinity)
+            } else {
+                TeamView()
+                    .frame(minWidth: 0, maxWidth: .infinity)
             }
         }
     }

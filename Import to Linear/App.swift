@@ -2,10 +2,10 @@ import SwiftUI
 import Apollo
 import Combine
 
-let store = ApolloStore(cache: InMemoryNormalizedCache())
+let store = ApolloStore()
 let provider = LegacyInterceptorProvider(store: store)
 let requestChain = RequestChainNetworkTransport(interceptorProvider: provider, endpointURL: URL(string: "https://api.linear.app/graphql")!, additionalHeaders: [
-    "authorization": "Bearer b"
+    "authorization": "Bearer"
 ])
 let client = ApolloClient(networkTransport: requestChain, store: store)
 
@@ -16,18 +16,16 @@ struct Application: App {
         apolloClient: client,
         currentView: .Dashboard,
         teams: [],
-        workflowStep: .Start,
+        teamViewState: [:],
         failedToLoadTeams: false,
         isLoadingTeams: false,
-        failedToLogin: false,
-        teamIdDownloadingIssues: [],
-        teamIdUploadingIssues: []
+        failedToLogin: false
     ), reducer: applicationReducer)
 
     var body: some Scene {
         WindowGroup {
             Router()
-                .frame(minWidth: 600, maxWidth: .infinity, minHeight: 400, maxHeight: .infinity)
+                .frame(minWidth: 800, maxWidth: .infinity, minHeight: 400, maxHeight: .infinity)
                 .environmentObject(self.store)
         }
     }

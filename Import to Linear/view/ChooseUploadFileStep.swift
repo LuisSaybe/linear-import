@@ -2,24 +2,36 @@ import SwiftUI
 
 struct ChooseUploadFileStep: View {
     @EnvironmentObject var store: ApplicationStore<ApplicationState, ApplicationAction>
+    let teamId: String
+
+    init(teamId: String) {
+        self.teamId = teamId
+    }
 
     func onUploadClick() {
-        if let teamId = self.store.state.currentSelectedTeamId {
-            let panel = NSOpenPanel()
-            panel.allowsMultipleSelection = false
-            panel.canChooseDirectories = false
-            panel.canChooseFiles = true
-            panel.allowedFileTypes = ["csv"]
+        let panel = NSOpenPanel()
+        panel.allowsMultipleSelection = false
+        panel.canChooseDirectories = false
+        panel.canChooseFiles = true
+        panel.allowedFileTypes = ["csv"]
 
-            panel.begin { (result) -> Void in
-                if result.rawValue != NSApplication.ModalResponse.OK.rawValue
-                {
-                    return
-                }
-
-                self.store.send(.setUploadCsvUrl(url: panel.url!))
-                self.store.send(.setWorkflowStep(data: .UploadProgress))
+        panel.begin { (result) -> Void in
+            if result.rawValue != NSApplication.ModalResponse.OK.rawValue
+            {
+                return
             }
+
+            let data = TeamViewState(
+                step: .UploadProgress,
+                isDownloading: nil,
+                downloadCompletionInformation: CompletionInformation(failureCount: 0, successCount: 0),
+                isUploading: nil,
+                uploadCompletionInformation: CompletionInformation(failureCount: 0, successCount: 0),
+                downloadUrl: nil,
+                uploadUrl: panel.url
+            )
+
+            self.store.send(.updateTeamViewState(teamId: self.teamId, data: data))
         }
     }
 
@@ -30,8 +42,23 @@ struct ChooseUploadFileStep: View {
                 Text("- Title")
                 Text("- Description")
             }.padding()
-            Button(action: self.onUploadClick) {
-                Text("Choose a .csv file")
+            HStack {
+                Button(action: {
+                    self.store.send(.updateTeamViewState(teamId: self.teamId, data: TeamViewState(
+                        step: .Start,
+                        isDownloading: false,
+                        downloadCompletionInformation: CompletionInformation(failureCount: 0, successCount: 0),
+                        isUploading: false,
+                        uploadCompletionInformation: CompletionInformation(failureCount: 0, successCount: 0),
+                        downloadUrl: nil,
+                        uploadUrl: nil
+                    )))
+                }) {
+                    Text("Back")
+                }
+                Button(action: self.onUploadClick) {
+                    Text("Choose a .csv file")
+                }
             }.padding(.top, 10)
         }.frame(maxHeight: .infinity)
     }

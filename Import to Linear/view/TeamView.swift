@@ -2,34 +2,36 @@ import SwiftUI
 
 struct TeamView: View {
     @EnvironmentObject var store: ApplicationStore<ApplicationState, ApplicationAction>
-    let teamId: String
-
-    init(teamId: String) {
-        self.teamId = teamId
-    }
 
     var body: some View {
-        let index = self.store.state.teams.firstIndex{$0.id == self.teamId}
-        let team = self.store.state.teams[index ?? 0]
+        VStack {
+            if let teamId = self.store.state.currentSelectedTeamId {
+                let teamStateView = self.store.state.teamViewState[teamId]
+                let index = self.store.state.teams.firstIndex{$0.id == teamId}
+                let team = self.store.state.teams[index ?? 0]
 
-        return VStack {
-            HStack {
-                Text(team.name)
-                    .padding()
-                    .font(.title)
-                Spacer()
-            }
-            Divider()
-            if self.store.state.workflowStep == .UploadStart {
-                ChooseUploadFileStep()
-            } else if self.store.state.workflowStep == .DownloadStart {
-                ChooseDirectoryStep()
-            } else if self.store.state.workflowStep == .DownloadProgress {
-                DownloadProgress()
-            } else if self.store.state.workflowStep == .UploadProgress {
-                UploadProgress()
+                HStack {
+                    Text(team.name)
+                        .padding()
+                        .font(.title)
+                    Spacer()
+                }
+                Divider()
+                if teamStateView?.step == .UploadStart {
+                    ChooseUploadFileStep(teamId: teamId)
+                } else if teamStateView?.step == .DownloadStart {
+                    ChooseDirectoryStep(teamId: teamId)
+                } else if teamStateView?.step == .DownloadProgress {
+                    DownloadProgress(teamId: teamId)
+                } else if teamStateView?.step == .UploadProgress {
+                    UploadProgress(teamId: teamId)
+                } else if teamStateView?.step == .Start {
+                    TeamWorkflowHome(teamId: teamId)
+                } else {
+                    Text("Can not determine current workflow step")
+                }
             } else {
-                TeamWorkflowHome()
+                Text("No team currently selected")
             }
         }
     }
