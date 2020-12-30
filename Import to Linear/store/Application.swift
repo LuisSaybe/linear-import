@@ -15,6 +15,18 @@ struct TeamViewState {
     let uploadCompletionInformation: CompletionInformation
     let downloadUrl: URL?
     let uploadUrl: URL?
+    
+    static func getDefault() -> TeamViewState {
+        return TeamViewState(
+            step: .Start,
+            isDownloading: false,
+            downloadCompletionInformation: CompletionInformation(failureCount: 0, successCount: 0),
+            isUploading: false,
+            uploadCompletionInformation: CompletionInformation(failureCount: 0, successCount: 0),
+            downloadUrl: nil,
+            uploadUrl: nil
+        )
+    }
 }
 
 enum ApplicationView {

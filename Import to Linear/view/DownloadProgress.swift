@@ -71,17 +71,9 @@ struct DownloadProgress: View {
                 } else {
                     Text("Job Complete").font(.title2).padding()
                     Button(action: {
-                        self.store.send(.updateTeamViewState(teamId: self.teamId, data: TeamViewState(
-                            step: .Start,
-                            isDownloading: nil,
-                            downloadCompletionInformation: CompletionInformation(failureCount: 0, successCount: 0),
-                            isUploading: nil,
-                            uploadCompletionInformation: CompletionInformation(failureCount: 0, successCount: 0),
-                            downloadUrl: nil,
-                            uploadUrl: nil
-                        )))
+                        self.store.send(.updateTeamViewState(teamId: self.teamId, data: TeamViewState.getDefault()))
                     }) {
-                        Text("Restart")
+                        Text("Return to start menu")
                     }.padding()
                 }
             } else {
@@ -89,7 +81,7 @@ struct DownloadProgress: View {
                 Button(action: {
                     self.store.send(.setCurrentlySelectedTeamId(teamId: nil))
                 }) {
-                    Text("Restart")
+                    Text("Return to start menu")
                 }
             }
         }.frame(maxHeight: .infinity)

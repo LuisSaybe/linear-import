@@ -27,7 +27,6 @@
 		A07EF6282592E138001DD2CC /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = A07EF6272592E138001DD2CC /* Router.swift */; };
 		A0870F2F25955AF30041FEFB /* Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0870F2E25955AF30041FEFB /* Application.swift */; };
 		A0870F332597C0020041FEFB /* CreateIssue.graphql in Resources */ = {isa = PBXBuildFile; fileRef = A0870F322597C0020041FEFB /* CreateIssue.graphql */; };
-		A0870F362597D2940041FEFB /* PromiseKit in Frameworks */ = {isa = PBXBuildFile; productRef = A0870F352597D2940041FEFB /* PromiseKit */; };
 		A0870F382597F9480041FEFB /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0870F372597F9480041FEFB /* DashboardView.swift */; };
 		A0C2787C258BDA450040C434 /* CsvHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C2787B258BDA450040C434 /* CsvHelper.swift */; };
 		A0CAD2E225928B71006AE000 /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0CAD2E125928B71006AE000 /* SignInViewModel.swift */; };
@@ -91,7 +90,6 @@
 				A0D60175258AC87800740487 /* CSV in Frameworks */,
 				A03223B5258E6C5000B4F862 /* ApolloWebSocket in Frameworks */,
 				A0D60188258AD19000740487 /* Alamofire in Frameworks */,
-				A0870F362597D2940041FEFB /* PromiseKit in Frameworks */,
 				A03223B3258E6C5000B4F862 /* ApolloCore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -204,7 +202,6 @@
 				A03223B4258E6C5000B4F862 /* ApolloWebSocket */,
 				A03223B6258E6C5000B4F862 /* Apollo */,
 				A03223B8258E6C5000B4F862 /* ApolloCodegenLib */,
-				A0870F352597D2940041FEFB /* PromiseKit */,
 			);
 			productName = "Import to Linear";
 			productReference = A0D6015F258AB78800740487 /* Import to Linear.app */;
@@ -237,7 +234,6 @@
 				A0D60173258AC87800740487 /* XCRemoteSwiftPackageReference "CSV.swift" */,
 				A0D60186258AD19000740487 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				A03223B1258E6C5000B4F862 /* XCRemoteSwiftPackageReference "apollo-ios" */,
-				A0870F342597D2940041FEFB /* XCRemoteSwiftPackageReference "PromiseKit" */,
 			);
 			productRefGroup = A0D60160258AB78800740487 /* Products */;
 			projectDirPath = "";
@@ -508,14 +504,6 @@
 				minimumVersion = 0.38.3;
 			};
 		};
-		A0870F342597D2940041FEFB /* XCRemoteSwiftPackageReference "PromiseKit" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/mxcl/PromiseKit";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 6.13.3;
-			};
-		};
 		A0D60173258AC87800740487 /* XCRemoteSwiftPackageReference "CSV.swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/yaslab/CSV.swift.git";
@@ -554,11 +542,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = A03223B1258E6C5000B4F862 /* XCRemoteSwiftPackageReference "apollo-ios" */;
 			productName = ApolloCodegenLib;
-		};
-		A0870F352597D2940041FEFB /* PromiseKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = A0870F342597D2940041FEFB /* XCRemoteSwiftPackageReference "PromiseKit" */;
-			productName = PromiseKit;
 		};
 		A0D60174258AC87800740487 /* CSV */ = {
 			isa = XCSwiftPackageProductDependency;

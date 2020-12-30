@@ -2,19 +2,12 @@ import SwiftUI
 import Apollo
 import Combine
 
-let store = ApolloStore()
-let provider = LegacyInterceptorProvider(store: store)
-let requestChain = RequestChainNetworkTransport(interceptorProvider: provider, endpointURL: URL(string: "https://api.linear.app/graphql")!, additionalHeaders: [
-    "authorization": "Bearer"
-])
-let client = ApolloClient(networkTransport: requestChain, store: store)
-
 @main
 struct Application: App {
     @Environment(\.colorScheme) var colorScheme
     let store = ApplicationStore<ApplicationState, ApplicationAction>(initialState: ApplicationState(
-        apolloClient: client,
-        currentView: .Dashboard,
+        apolloClient: nil,
+        currentView: .Root,
         teams: [],
         teamViewState: [:],
         failedToLoadTeams: false,

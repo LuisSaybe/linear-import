@@ -171,6 +171,7 @@ class CSVHelper {
 
         let titleRows = getRowsHeaderCellsWithSimilarValue(reader: reader, target: "title")
         let descriptionKey = getRowsHeaderCellsWithSimilarValue(reader: reader, target: "description").first
+        let priorityKey = getRowsHeaderCellsWithSimilarValue(reader: reader, target: "priority").first
 
         if titleRows.count != 1 {
             completionHandler(.failure(.missingUniqueTitleColumn))
@@ -188,8 +189,17 @@ class CSVHelper {
 
             let title = reader[titleRows.first ?? "title"]
             let description = descriptionKey == nil ? "" : reader[descriptionKey!]
+            var priority: Int? = nil
 
-            self.client.perform(mutation: CreateIssueMutation(teamId: teamId, title: title!, description: description)) { result in
+            if let key = priorityKey {
+                if let cellString = reader[key],
+                   let priorityNumber = Int(cellString),
+                   priorityNumber > -1 && priorityNumber < 5 {
+                    priority = priorityNumber
+                }
+            }
+
+            self.client.perform(mutation: CreateIssueMutation(teamId: teamId, title: title!, description: description, priority: priority)) { result in
                 switch result {
                     case .success(let result):
                         if let errors = result.errors {

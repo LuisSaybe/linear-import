@@ -22,17 +22,17 @@ struct TeamWorkflowHome: View {
     
     var body: some View {
         VStack {
-            Text("What would you like to do?").font(.title3)
+            Text("What would you like to do?").font(.title2)
             HStack {
                 Button(action: {
                     self.store.send(.updateTeamViewState(teamId: self.teamId, data: self.getNextTeamViewData(step: .UploadStart)))
                 }) {
-                    Text("I want to upload issues")
+                    Text("I want to upload issues").font(.title2)
                 }
                 Button(action: {
                     self.store.send(.updateTeamViewState(teamId: self.teamId, data: self.getNextTeamViewData(step: .DownloadStart)))
                 }) {
-                    Text("I want to download my issues")
+                    Text("I want to download my issues").font(.title2)
                 }
             }.padding(.top, 10)
         }.frame(maxHeight: .infinity)

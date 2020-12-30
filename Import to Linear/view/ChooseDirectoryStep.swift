@@ -34,23 +34,15 @@ struct ChooseDirectoryStep: View {
 
     var body: some View {
         VStack {
-            Text("Select a download folder to get start").font(.title3)
+            Text("Select a download folder to get started").font(.title3)
             HStack {
                 Button(action: {
-                    self.store.send(.updateTeamViewState(teamId: self.teamId, data: TeamViewState(
-                        step: .Start,
-                        isDownloading: nil,
-                        downloadCompletionInformation: CompletionInformation(failureCount: 0, successCount: 0),
-                        isUploading: nil,
-                        uploadCompletionInformation: CompletionInformation(failureCount: 0, successCount: 0),
-                        downloadUrl: nil,
-                        uploadUrl: nil
-                    )))
+                    self.store.send(.updateTeamViewState(teamId: self.teamId, data: TeamViewState.getDefault()))
                 }) {
-                    Text("Back")
+                    Text("Back").font(.title3)
                 }
                 Button(action: self.onDownloadClick) {
-                    Text("Choose a folder")
+                    Text("Choose a folder").font(.title3)
                 }
             }.padding(.top, 10)
         }.frame(maxHeight: .infinity)

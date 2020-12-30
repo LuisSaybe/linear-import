@@ -15,9 +15,21 @@ struct DashboardView: View {
             .frame(minWidth: 0, maxWidth: 300)
             Divider()
             if store.state.currentSelectedTeamId == nil {
-                Text("Select a team to start")
-                    .font(.title2)
-                    .frame(minWidth: 1, maxWidth: .infinity)
+                VStack {
+                    HStack {
+                        Spacer()
+                        Button(action: {
+                            self.store.send(.setApolloClient(data: nil))
+                            self.store.send(.setView(data: .Root))
+                        }) {
+                            Text("Logout").font(.title)
+                        }.buttonStyle(PlainButtonStyle())
+                    }.padding()
+                    Divider()
+                    Text("Select a team to start")
+                        .font(.title2)
+                        .frame(minWidth: 1, maxWidth: .infinity, maxHeight: .infinity)
+                }
             } else {
                 TeamView()
                     .frame(minWidth: 0, maxWidth: .infinity)

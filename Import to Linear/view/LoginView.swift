@@ -6,7 +6,6 @@ import Apollo
 struct LoginView: View {
     @EnvironmentObject var store: ApplicationStore<ApplicationState, ApplicationAction>
     @State var loginButtonDisabled: Bool = false
-    let teamId = "c4e41f33-8e10-43d5-85ef-03ecadb94d06"
     let clientId = "41555b797aea67b9144f1fe11c2469e2"
     let redirectScheme = "com.luissaybe.linear-tools"
     let redirectUri = "com.luissaybe.linear-tools://oauth-redirect"
@@ -44,7 +43,6 @@ struct LoginView: View {
                             let requestChain = RequestChainNetworkTransport(interceptorProvider: provider, endpointURL: URL(string: "https://api.linear.app/graphql")!, additionalHeaders: [
                                 "authorization": "Bearer \(accessToken)"
                             ])
-                            print("accessToken = ", accessToken)
                             self.store.send(.setApolloClient(data: ApolloClient(networkTransport: requestChain, store: store)))
                             self.store.send(.setView(data: ApplicationView.Dashboard))
                         } else {
@@ -58,7 +56,7 @@ struct LoginView: View {
 
         self.loginButtonDisabled = false
     }
-    
+
     func onLoginClick() {
         self.loginButtonDisabled = true
 
@@ -66,9 +64,16 @@ struct LoginView: View {
     }
 
     var body: some View {
-        VStack {
+        VStack(alignment: .leading, spacing: 20) {
+            Text("Linear Tools").font(.title)
+            HStack {
+                Text("Linear Tools is an").font(.title2)
+                Link("open source", destination: URL(string: "https://github.com/LuisSaybe/linear-import")!).font(.title2)
+                Text("app that helps you import and export your linear issues from and to .csv files.").font(.title2)
+            }
+            Text("Log into your linear account to get started.").font(.title2)
             Button(action: self.onLoginClick, label: {
-                Text("Login to your Linear Account")
+                Text("Login")
             })
             .disabled(self.loginButtonDisabled)
         }

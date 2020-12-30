@@ -3,6 +3,7 @@ import SwiftUI
 struct UploadProgress: View {
     @EnvironmentObject var store: ApplicationStore<ApplicationState, ApplicationAction>
     let teamId: String
+    @State var showUnableToUseFile = false
 
     init(teamId: String) {
         self.teamId = teamId
@@ -33,15 +34,14 @@ struct UploadProgress: View {
     }
 
     func onAppear() {
-        if let teamId = self.store.state.currentSelectedTeamId,
-           let viewState = self.getViewState(),
+        if let viewState = self.getViewState(),
            let url = viewState.uploadUrl,
            let client = self.store.state.apolloClient {
 
             if viewState.isUploading == nil {
                 let helper = CSVHelper(client: client)
 
-                helper.uploadToLinearTeam(teamId: teamId, url: url, onUpdate: { uploadProgress in
+                helper.uploadToLinearTeam(teamId: self.teamId, url: url, onUpdate: { uploadProgress in
                     if let data = self.getNextProgressState(data: uploadProgress, isUploading: true) {
                         self.store.send(.updateTeamViewState(teamId: self.teamId, data: data))
                     }
@@ -49,8 +49,8 @@ struct UploadProgress: View {
                     switch result {
                         case.success(let information):
                             debugPrint(information)
-                        case .failure(let error):
-                            debugPrint(error)
+                        case .failure:
+                            self.showUnableToUseFile = true
                     }
 
                     if let viewState = self.getViewState(),
@@ -64,26 +64,25 @@ struct UploadProgress: View {
 
     var body: some View {
         VStack(alignment: .leading) {
-            if let viewState = self.getViewState() {
-                Text("Uploaded \(viewState.uploadCompletionInformation.successCount) issue\(viewState.uploadCompletionInformation.successCount == 1 ? "" : "s")").font(.title2).padding()
-                Text("Failed to upload \(viewState.uploadCompletionInformation.failureCount) issue\(viewState.uploadCompletionInformation.successCount == 1 ? "" : "s")").font(.title2).padding()
+            if self.showUnableToUseFile {
+                Text("Unable to use selected csv file, please try another file.").font(.title3)
+                Button(action: {
+                    self.store.send(.updateTeamViewState(teamId: self.teamId, data: TeamViewState.getDefault()))
+                }) {
+                    Text("Return to start menu").font(.title3)
+                }
+            } else  if let viewState = self.getViewState() {
+                Text("Uploaded \(viewState.uploadCompletionInformation.successCount) issue\(viewState.uploadCompletionInformation.successCount == 1 ? "" : "s")").font(.title3).padding()
+                Text("Failed to upload \(viewState.uploadCompletionInformation.failureCount) issue\(viewState.uploadCompletionInformation.successCount == 1 ? "" : "s")").font(.title3).padding()
 
                 if viewState.isUploading == nil || viewState.isUploading == true {
                     ProgressView().padding()
                 } else {
-                    Text("Job Complete").font(.title2).padding()
+                    Text("Job Complete").font(.title3).padding()
                     Button(action: {
-                        self.store.send(.updateTeamViewState(teamId: self.teamId, data: TeamViewState(
-                            step: .Start,
-                            isDownloading: nil,
-                            downloadCompletionInformation: CompletionInformation(failureCount: 0, successCount: 0),
-                            isUploading: nil,
-                            uploadCompletionInformation: CompletionInformation(failureCount: 0, successCount: 0),
-                            downloadUrl: nil,
-                            uploadUrl: nil
-                        )))
+                        self.store.send(.updateTeamViewState(teamId: self.teamId, data: TeamViewState.getDefault()))
                     }) {
-                        Text("Restart")
+                        Text("Return to start menu")
                     }.padding()
                 }
             } else {
@@ -91,7 +90,7 @@ struct UploadProgress: View {
                 Button(action: {
                     self.store.send(.setCurrentlySelectedTeamId(teamId: nil))
                 }) {
-                    Text("Restart")
+                    Text("Return to start menu")
                 }
             }
         }

@@ -8,8 +8,10 @@ public final class CreateIssueMutation: GraphQLMutation {
   /// The raw GraphQL definition of this operation.
   public let operationDefinition: String =
     """
-    mutation CreateIssue($teamId: String!, $title: String!, $description: String) {
-      issueCreate(input: {teamId: $teamId, title: $title, description: $description}) {
+    mutation CreateIssue($teamId: String!, $title: String!, $description: String, $priority: Int) {
+      issueCreate(
+        input: {teamId: $teamId, title: $title, description: $description, priority: $priority}
+      ) {
         __typename
         success
       }
@@ -18,20 +20,22 @@ public final class CreateIssueMutation: GraphQLMutation {
 
   public let operationName: String = "CreateIssue"
 
-  public let operationIdentifier: String? = "d7abc1c56bcdf755c8c656aac82cf2394f2b5a8cdd941715a6552353526f8842"
+  public let operationIdentifier: String? = "0949324291ff2b1678a2886e06159f19207e3fe1b250dab19a9ea4375cf6b3ab"
 
   public var teamId: String
   public var title: String
   public var description: String?
+  public var priority: Int?
 
-  public init(teamId: String, title: String, description: String? = nil) {
+  public init(teamId: String, title: String, description: String? = nil, priority: Int? = nil) {
     self.teamId = teamId
     self.title = title
     self.description = description
+    self.priority = priority
   }
 
   public var variables: GraphQLMap? {
-    return ["teamId": teamId, "title": title, "description": description]
+    return ["teamId": teamId, "title": title, "description": description, "priority": priority]
   }
 
   public struct Data: GraphQLSelectionSet {
@@ -39,7 +43,7 @@ public final class CreateIssueMutation: GraphQLMutation {
 
     public static var selections: [GraphQLSelection] {
       return [
-        GraphQLField("issueCreate", arguments: ["input": ["teamId": GraphQLVariable("teamId"), "title": GraphQLVariable("title"), "description": GraphQLVariable("description")]], type: .nonNull(.object(IssueCreate.selections))),
+        GraphQLField("issueCreate", arguments: ["input": ["teamId": GraphQLVariable("teamId"), "title": GraphQLVariable("title"), "description": GraphQLVariable("description"), "priority": GraphQLVariable("priority")]], type: .nonNull(.object(IssueCreate.selections))),
       ]
     }
 

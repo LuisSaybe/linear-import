@@ -37,27 +37,27 @@ struct ChooseUploadFileStep: View {
 
     var body: some View {
         VStack(alignment: .leading) {
-            Text("Your selected .csv file accepts the following columns")
+            Text("Your selected .csv file accepts the following columns").font(.title2)
             VStack(alignment: .leading) {
-                Text("- Title")
-                Text("- Description")
+                Text("- Title (Required)").font(.title2)
+                Text("- Description (Optional)").font(.title2)
+                Text("- Priority (Optional)").font(.title2)
+                VStack(alignment: .leading) {
+                    Text("0 - No Priority").font(.title2)
+                    Text("1 - Urgent").font(.title2)
+                    Text("2 - High").font(.title2)
+                    Text("3 - Medium").font(.title2)
+                    Text("4 - Low").font(.title2)
+                }.padding(.leading, 15).padding(.top, 5)
             }.padding()
             HStack {
                 Button(action: {
-                    self.store.send(.updateTeamViewState(teamId: self.teamId, data: TeamViewState(
-                        step: .Start,
-                        isDownloading: false,
-                        downloadCompletionInformation: CompletionInformation(failureCount: 0, successCount: 0),
-                        isUploading: false,
-                        uploadCompletionInformation: CompletionInformation(failureCount: 0, successCount: 0),
-                        downloadUrl: nil,
-                        uploadUrl: nil
-                    )))
+                    self.store.send(.updateTeamViewState(teamId: self.teamId, data: TeamViewState.getDefault()))
                 }) {
-                    Text("Back")
+                    Text("Back").font(.title2)
                 }
                 Button(action: self.onUploadClick) {
-                    Text("Choose a .csv file")
+                    Text("Choose a .csv file").font(.title2)
                 }
             }.padding(.top, 10)
         }.frame(maxHeight: .infinity)

@@ -12,10 +12,15 @@ struct TeamView: View {
 
                 HStack {
                     Text(team.name)
-                        .padding()
                         .font(.title)
                     Spacer()
-                }
+                    Button(action: {
+                        self.store.send(.setApolloClient(data: nil))
+                        self.store.send(.setView(data: .Root))
+                    }) {
+                        Text("Logout").font(.title)
+                    }.buttonStyle(PlainButtonStyle())
+                }.padding()
                 Divider()
                 if teamStateView?.step == .UploadStart {
                     ChooseUploadFileStep(teamId: teamId)

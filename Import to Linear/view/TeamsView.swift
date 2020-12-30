@@ -43,7 +43,8 @@ struct TeamsView: View {
         } else if self.store.state.teams.isEmpty {
             VStack(alignment: .leading) {
                 Text("Sorry, it appears you don't have any teams.")
-                Text("Try adding teams in your linear account.").padding(.top, 10)
+                Text("Try adding teams in your linear account and then restart the app.").padding(.top, 10)
+                Link("Visit linear.app", destination: URL(string: "https://linear.app")!).font(.title3).padding(.top, 10)
                 Spacer()
             }
                 .frame(minHeight: 0, maxHeight: .infinity)
