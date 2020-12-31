@@ -1,11 +1,11 @@
 {
-  "0949324291ff2b1678a2886e06159f19207e3fe1b250dab19a9ea4375cf6b3ab": {
+  "dc3a21053611452bd0d63f5f868a158e8fe85399f58ccba439c876ccd66c3acd": {
     "name": "CreateIssue",
-    "source": "mutation CreateIssue($teamId: String!, $title: String!, $description: String, $priority: Int) {\n  issueCreate(\n    input: {teamId: $teamId, title: $title, description: $description, priority: $priority}\n  ) {\n    __typename\n    success\n  }\n}"
+    "source": "mutation CreateIssue($teamId: String!, $title: String!, $description: String, $priority: Int, $labelIds: [String!], $stateId: String, $assigneeId: String) {\n  issueCreate(\n    input: {teamId: $teamId, title: $title, description: $description, priority: $priority, labelIds: $labelIds, stateId: $stateId, assigneeId: $assigneeId}\n  ) {\n    __typename\n    success\n  }\n}"
   },
-  "e1f35979e48c2a297b441d7a4f45f86134c2ee0820da6c44ab82fde4ca49d8ff": {
+  "a9b04ad66d308fa904c0c85fe3cd5aeb647c4a446c08e6f45f750f301eb5a6fa": {
     "name": "GetTeamIssues",
-    "source": "query GetTeamIssues($teamId: String!, $first: Int, $after: String) {\n  team(id: $teamId) {\n    __typename\n    issues(first: $first, after: $after) {\n      __typename\n      nodes {\n        __typename\n        id\n        title\n        estimate\n        createdAt\n        updatedAt\n        archivedAt\n        description\n        assignee {\n          __typename\n          id\n          name\n        }\n      }\n    }\n  }\n}"
+    "source": "query GetTeamIssues($teamId: String!, $first: Int, $after: String) {\n  team(id: $teamId) {\n    __typename\n    issues(first: $first, after: $after) {\n      __typename\n      nodes {\n        __typename\n        id\n        identifier\n        title\n        estimate\n        priority\n        description\n        state {\n          __typename\n          id\n        }\n        labels {\n          __typename\n          nodes {\n            __typename\n            id\n          }\n        }\n        assignee {\n          __typename\n          id\n          name\n        }\n      }\n    }\n  }\n}"
   },
   "d31296a981ec59c904e044b4ae9f2031e4da75b46f3b32a22bb9c05686b79152": {
     "name": "GetTeams",

@@ -2,13 +2,19 @@ mutation CreateIssue(
     $teamId: String!,
     $title: String!,
     $description: String,
-    $priority: Int
+    $priority: Int,
+    $labelIds: [String!],
+    $stateId: String,
+    $assigneeId: String
 ) {
     issueCreate(input: {
         teamId: $teamId,
         title: $title,
         description: $description,
-        priority: $priority
+        priority: $priority,
+        labelIds: $labelIds,
+        stateId: $stateId,
+        assigneeId: $assigneeId
     }) {
         success
     }

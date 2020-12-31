@@ -3,12 +3,19 @@ query GetTeamIssues($teamId: String!, $first: Int, $after: String) {
     issues(first: $first, after: $after) {
       nodes {
         id
+        identifier
         title
         estimate
-        createdAt
-        updatedAt
-        archivedAt
+        priority
         description
+        state {
+            id
+        }
+        labels {
+            nodes {
+                id
+            }
+        }
         assignee {
           id
           name

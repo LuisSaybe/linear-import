@@ -1,0 +1,5 @@
+Title,description,priority
+Establish Server,Establish back-end server for API,1
+Establish Web Project,Establish web front-end project in github,4
+Establish iOS Project,Establish iOS front-end project in github,3
+Establish Android Project,Establish Android front-end project in github,2

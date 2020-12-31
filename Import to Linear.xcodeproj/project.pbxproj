@@ -432,8 +432,9 @@
 				CODE_SIGN_ENTITLEMENTS = "Import to Linear/Import_to_Linear.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_ASSET_PATHS = "\"Import to Linear/Preview Content\"";
-				DEVELOPMENT_TEAM = 5V6SFZBP9M;
+				DEVELOPMENT_TEAM = DRQ8M77NK8;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "Import to Linear/Info.plist";
@@ -442,7 +443,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.luissaybe.import-to-linear.Import-to-Linear";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.luissaybe.linear-tools";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 			};
@@ -456,8 +457,9 @@
 				CODE_SIGN_ENTITLEMENTS = "Import to Linear/Import_to_Linear.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_ASSET_PATHS = "\"Import to Linear/Preview Content\"";
-				DEVELOPMENT_TEAM = 5V6SFZBP9M;
+				DEVELOPMENT_TEAM = DRQ8M77NK8;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "Import to Linear/Info.plist";
@@ -466,7 +468,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.luissaybe.import-to-linear.Import-to-Linear";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.luissaybe.linear-tools";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 			};

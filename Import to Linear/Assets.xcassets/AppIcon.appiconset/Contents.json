@@ -1,61 +1,61 @@
 {
   "images" : [
     {
-      "filename" : "add-file-7.png",
+      "filename" : "mac16x16.png",
       "idiom" : "mac",
       "scale" : "1x",
       "size" : "16x16"
     },
     {
-      "filename" : "add-file-8.png",
+      "filename" : "mac32x32.png",
       "idiom" : "mac",
       "scale" : "2x",
       "size" : "16x16"
     },
     {
-      "filename" : "add-file-6.png",
+      "filename" : "mac32x32-1.png",
       "idiom" : "mac",
       "scale" : "1x",
       "size" : "32x32"
     },
     {
-      "filename" : "add-file-5.png",
+      "filename" : "mac32x32@2x.png",
       "idiom" : "mac",
       "scale" : "2x",
       "size" : "32x32"
     },
     {
-      "filename" : "add-file-3.png",
+      "filename" : "mac128x128.png",
       "idiom" : "mac",
       "scale" : "1x",
       "size" : "128x128"
     },
     {
-      "filename" : "add-file-2.png",
+      "filename" : "mac256x256.png",
       "idiom" : "mac",
       "scale" : "2x",
       "size" : "128x128"
     },
     {
-      "filename" : "add-file-9.png",
+      "filename" : "mac256x256-1.png",
       "idiom" : "mac",
       "scale" : "1x",
       "size" : "256x256"
     },
     {
-      "filename" : "add-file-4.png",
+      "filename" : "mac512x512.png",
       "idiom" : "mac",
       "scale" : "2x",
       "size" : "256x256"
     },
     {
-      "filename" : "add-file-1.png",
+      "filename" : "mac512x512-1.png",
       "idiom" : "mac",
       "scale" : "1x",
       "size" : "512x512"
     },
     {
-      "filename" : "add-file.png",
+      "filename" : "mac512x512@2x.png",
       "idiom" : "mac",
       "scale" : "2x",
       "size" : "512x512"

@@ -63,35 +63,29 @@ struct UploadProgress: View {
     }
 
     var body: some View {
-        VStack(alignment: .leading) {
+        VStack(alignment: .leading, spacing: 10) {
             if self.showUnableToUseFile {
                 Text("Unable to use selected csv file, please try another file.").font(.title3)
-                Button(action: {
+                Button("Return to start menu", action: {
                     self.store.send(.updateTeamViewState(teamId: self.teamId, data: TeamViewState.getDefault()))
-                }) {
-                    Text("Return to start menu").font(.title3)
-                }
-            } else  if let viewState = self.getViewState() {
-                Text("Uploaded \(viewState.uploadCompletionInformation.successCount) issue\(viewState.uploadCompletionInformation.successCount == 1 ? "" : "s")").font(.title3).padding()
-                Text("Failed to upload \(viewState.uploadCompletionInformation.failureCount) issue\(viewState.uploadCompletionInformation.successCount == 1 ? "" : "s")").font(.title3).padding()
+                }).font(.title3)
+            } else if let viewState = self.getViewState() {
+                Text("Uploaded \(viewState.uploadCompletionInformation.successCount) issue\(viewState.uploadCompletionInformation.successCount == 1 ? "" : "s")").font(.title3)
+                Text("Failed to upload \(viewState.uploadCompletionInformation.failureCount) issue\(viewState.uploadCompletionInformation.failureCount == 1 ? "" : "s")").font(.title3)
 
                 if viewState.isUploading == nil || viewState.isUploading == true {
                     ProgressView().padding()
                 } else {
-                    Text("Job Complete").font(.title3).padding()
-                    Button(action: {
+                    Text("Job Complete").font(.title3)
+                    Button("Return to start menu", action: {
                         self.store.send(.updateTeamViewState(teamId: self.teamId, data: TeamViewState.getDefault()))
-                    }) {
-                        Text("Return to start menu")
-                    }.padding()
+                    })
                 }
             } else {
                 Text("Unable to determine currently selected team")
-                Button(action: {
+                Button("Return to start menu", action: {
                     self.store.send(.setCurrentlySelectedTeamId(teamId: nil))
-                }) {
-                    Text("Return to start menu")
-                }
+                })
             }
         }
         .frame(maxHeight: .infinity)

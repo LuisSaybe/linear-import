@@ -8,9 +8,9 @@ public final class CreateIssueMutation: GraphQLMutation {
   /// The raw GraphQL definition of this operation.
   public let operationDefinition: String =
     """
-    mutation CreateIssue($teamId: String!, $title: String!, $description: String, $priority: Int) {
+    mutation CreateIssue($teamId: String!, $title: String!, $description: String, $priority: Int, $labelIds: [String!], $stateId: String, $assigneeId: String) {
       issueCreate(
-        input: {teamId: $teamId, title: $title, description: $description, priority: $priority}
+        input: {teamId: $teamId, title: $title, description: $description, priority: $priority, labelIds: $labelIds, stateId: $stateId, assigneeId: $assigneeId}
       ) {
         __typename
         success
@@ -20,22 +20,28 @@ public final class CreateIssueMutation: GraphQLMutation {
 
   public let operationName: String = "CreateIssue"
 
-  public let operationIdentifier: String? = "0949324291ff2b1678a2886e06159f19207e3fe1b250dab19a9ea4375cf6b3ab"
+  public let operationIdentifier: String? = "dc3a21053611452bd0d63f5f868a158e8fe85399f58ccba439c876ccd66c3acd"
 
   public var teamId: String
   public var title: String
   public var description: String?
   public var priority: Int?
+  public var labelIds: [String]?
+  public var stateId: String?
+  public var assigneeId: String?
 
-  public init(teamId: String, title: String, description: String? = nil, priority: Int? = nil) {
+  public init(teamId: String, title: String, description: String? = nil, priority: Int? = nil, labelIds: [String]?, stateId: String? = nil, assigneeId: String? = nil) {
     self.teamId = teamId
     self.title = title
     self.description = description
     self.priority = priority
+    self.labelIds = labelIds
+    self.stateId = stateId
+    self.assigneeId = assigneeId
   }
 
   public var variables: GraphQLMap? {
-    return ["teamId": teamId, "title": title, "description": description, "priority": priority]
+    return ["teamId": teamId, "title": title, "description": description, "priority": priority, "labelIds": labelIds, "stateId": stateId, "assigneeId": assigneeId]
   }
 
   public struct Data: GraphQLSelectionSet {
@@ -43,7 +49,7 @@ public final class CreateIssueMutation: GraphQLMutation {
 
     public static var selections: [GraphQLSelection] {
       return [
-        GraphQLField("issueCreate", arguments: ["input": ["teamId": GraphQLVariable("teamId"), "title": GraphQLVariable("title"), "description": GraphQLVariable("description"), "priority": GraphQLVariable("priority")]], type: .nonNull(.object(IssueCreate.selections))),
+        GraphQLField("issueCreate", arguments: ["input": ["teamId": GraphQLVariable("teamId"), "title": GraphQLVariable("title"), "description": GraphQLVariable("description"), "priority": GraphQLVariable("priority"), "labelIds": GraphQLVariable("labelIds"), "stateId": GraphQLVariable("stateId"), "assigneeId": GraphQLVariable("assigneeId")]], type: .nonNull(.object(IssueCreate.selections))),
       ]
     }
 
@@ -121,12 +127,22 @@ public final class GetTeamIssuesQuery: GraphQLQuery {
           nodes {
             __typename
             id
+            identifier
             title
             estimate
-            createdAt
-            updatedAt
-            archivedAt
+            priority
             description
+            state {
+              __typename
+              id
+            }
+            labels {
+              __typename
+              nodes {
+                __typename
+                id
+              }
+            }
             assignee {
               __typename
               id
@@ -140,7 +156,7 @@ public final class GetTeamIssuesQuery: GraphQLQuery {
 
   public let operationName: String = "GetTeamIssues"
 
-  public let operationIdentifier: String? = "e1f35979e48c2a297b441d7a4f45f86134c2ee0820da6c44ab82fde4ca49d8ff"
+  public let operationIdentifier: String? = "a9b04ad66d308fa904c0c85fe3cd5aeb647c4a446c08e6f45f750f301eb5a6fa"
 
   public var teamId: String
   public var first: Int?
@@ -269,12 +285,13 @@ public final class GetTeamIssuesQuery: GraphQLQuery {
             return [
               GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
               GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
+              GraphQLField("identifier", type: .nonNull(.scalar(String.self))),
               GraphQLField("title", type: .nonNull(.scalar(String.self))),
               GraphQLField("estimate", type: .scalar(Double.self)),
-              GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
-              GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
-              GraphQLField("archivedAt", type: .scalar(String.self)),
+              GraphQLField("priority", type: .nonNull(.scalar(Double.self))),
               GraphQLField("description", type: .scalar(String.self)),
+              GraphQLField("state", type: .nonNull(.object(State.selections))),
+              GraphQLField("labels", type: .nonNull(.object(Label.selections))),
               GraphQLField("assignee", type: .object(Assignee.selections)),
             ]
           }
@@ -285,8 +302,8 @@ public final class GetTeamIssuesQuery: GraphQLQuery {
             self.resultMap = unsafeResultMap
           }
 
-          public init(id: GraphQLID, title: String, estimate: Double? = nil, createdAt: String, updatedAt: String, archivedAt: String? = nil, description: String? = nil, assignee: Assignee? = nil) {
-            self.init(unsafeResultMap: ["__typename": "Issue", "id": id, "title": title, "estimate": estimate, "createdAt": createdAt, "updatedAt": updatedAt, "archivedAt": archivedAt, "description": description, "assignee": assignee.flatMap { (value: Assignee) -> ResultMap in value.resultMap }])
+          public init(id: GraphQLID, identifier: String, title: String, estimate: Double? = nil, priority: Double, description: String? = nil, state: State, labels: Label, assignee: Assignee? = nil) {
+            self.init(unsafeResultMap: ["__typename": "Issue", "id": id, "identifier": identifier, "title": title, "estimate": estimate, "priority": priority, "description": description, "state": state.resultMap, "labels": labels.resultMap, "assignee": assignee.flatMap { (value: Assignee) -> ResultMap in value.resultMap }])
           }
 
           public var __typename: String {
@@ -305,6 +322,16 @@ public final class GetTeamIssuesQuery: GraphQLQuery {
             }
             set {
               resultMap.updateValue(newValue, forKey: "id")
+            }
+          }
+
+          /// Issue's human readable identifier (e.g. ENG-123).
+          public var identifier: String {
+            get {
+              return resultMap["identifier"]! as! String
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "identifier")
             }
           }
 
@@ -328,34 +355,13 @@ public final class GetTeamIssuesQuery: GraphQLQuery {
             }
           }
 
-          /// The time at which the entity was created.
-          public var createdAt: String {
+          /// The priority of the issue.
+          public var priority: Double {
             get {
-              return resultMap["createdAt"]! as! String
+              return resultMap["priority"]! as! Double
             }
             set {
-              resultMap.updateValue(newValue, forKey: "createdAt")
-            }
-          }
-
-          /// The last time at which the entity was updated. This is the same as the creation time if the
-          /// entity hasn't been update after creation.
-          public var updatedAt: String {
-            get {
-              return resultMap["updatedAt"]! as! String
-            }
-            set {
-              resultMap.updateValue(newValue, forKey: "updatedAt")
-            }
-          }
-
-          /// The time at which the entity was archived. Null if the entity has not been archived.
-          public var archivedAt: String? {
-            get {
-              return resultMap["archivedAt"] as? String
-            }
-            set {
-              resultMap.updateValue(newValue, forKey: "archivedAt")
+              resultMap.updateValue(newValue, forKey: "priority")
             }
           }
 
@@ -369,6 +375,26 @@ public final class GetTeamIssuesQuery: GraphQLQuery {
             }
           }
 
+          /// The workflow state that the issue is associated with.
+          public var state: State {
+            get {
+              return State(unsafeResultMap: resultMap["state"]! as! ResultMap)
+            }
+            set {
+              resultMap.updateValue(newValue.resultMap, forKey: "state")
+            }
+          }
+
+          /// Labels associated with this issue.
+          public var labels: Label {
+            get {
+              return Label(unsafeResultMap: resultMap["labels"]! as! ResultMap)
+            }
+            set {
+              resultMap.updateValue(newValue.resultMap, forKey: "labels")
+            }
+          }
+
           /// The user to whom the issue is assigned to.
           public var assignee: Assignee? {
             get {
@@ -376,6 +402,125 @@ public final class GetTeamIssuesQuery: GraphQLQuery {
             }
             set {
               resultMap.updateValue(newValue?.resultMap, forKey: "assignee")
+            }
+          }
+
+          public struct State: GraphQLSelectionSet {
+            public static let possibleTypes: [String] = ["WorkflowState"]
+
+            public static var selections: [GraphQLSelection] {
+              return [
+                GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+                GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
+              ]
+            }
+
+            public private(set) var resultMap: ResultMap
+
+            public init(unsafeResultMap: ResultMap) {
+              self.resultMap = unsafeResultMap
+            }
+
+            public init(id: GraphQLID) {
+              self.init(unsafeResultMap: ["__typename": "WorkflowState", "id": id])
+            }
+
+            public var __typename: String {
+              get {
+                return resultMap["__typename"]! as! String
+              }
+              set {
+                resultMap.updateValue(newValue, forKey: "__typename")
+              }
+            }
+
+            /// The unique identifier of the entity.
+            public var id: GraphQLID {
+              get {
+                return resultMap["id"]! as! GraphQLID
+              }
+              set {
+                resultMap.updateValue(newValue, forKey: "id")
+              }
+            }
+          }
+
+          public struct Label: GraphQLSelectionSet {
+            public static let possibleTypes: [String] = ["IssueLabelConnection"]
+
+            public static var selections: [GraphQLSelection] {
+              return [
+                GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+                GraphQLField("nodes", type: .nonNull(.list(.nonNull(.object(Node.selections))))),
+              ]
+            }
+
+            public private(set) var resultMap: ResultMap
+
+            public init(unsafeResultMap: ResultMap) {
+              self.resultMap = unsafeResultMap
+            }
+
+            public init(nodes: [Node]) {
+              self.init(unsafeResultMap: ["__typename": "IssueLabelConnection", "nodes": nodes.map { (value: Node) -> ResultMap in value.resultMap }])
+            }
+
+            public var __typename: String {
+              get {
+                return resultMap["__typename"]! as! String
+              }
+              set {
+                resultMap.updateValue(newValue, forKey: "__typename")
+              }
+            }
+
+            public var nodes: [Node] {
+              get {
+                return (resultMap["nodes"] as! [ResultMap]).map { (value: ResultMap) -> Node in Node(unsafeResultMap: value) }
+              }
+              set {
+                resultMap.updateValue(newValue.map { (value: Node) -> ResultMap in value.resultMap }, forKey: "nodes")
+              }
+            }
+
+            public struct Node: GraphQLSelectionSet {
+              public static let possibleTypes: [String] = ["IssueLabel"]
+
+              public static var selections: [GraphQLSelection] {
+                return [
+                  GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+                  GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
+                ]
+              }
+
+              public private(set) var resultMap: ResultMap
+
+              public init(unsafeResultMap: ResultMap) {
+                self.resultMap = unsafeResultMap
+              }
+
+              public init(id: GraphQLID) {
+                self.init(unsafeResultMap: ["__typename": "IssueLabel", "id": id])
+              }
+
+              public var __typename: String {
+                get {
+                  return resultMap["__typename"]! as! String
+                }
+                set {
+                  resultMap.updateValue(newValue, forKey: "__typename")
+                }
+              }
+
+              /// The unique identifier of the entity.
+              public var id: GraphQLID {
+                get {
+                  return resultMap["id"]! as! GraphQLID
+                }
+                set {
+                  resultMap.updateValue(newValue, forKey: "id")
+                }
+              }
             }
           }
 

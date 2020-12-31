@@ -13,7 +13,7 @@ struct LoginView: View {
 
     func showUnableToSignIn() {
         let alert = NSAlert()
-        alert.informativeText = "Sorry, we were not able to retrieve an access token from your account. Please try again."
+        alert.informativeText = "Sorry, we were not able to retrieve an access token for your account. Please try again."
         alert.alertStyle = .warning
         alert.addButton(withTitle: "Ok")
         alert.runModal()
@@ -22,35 +22,38 @@ struct LoginView: View {
     func onSignInComplete(callbackURL: URL?, error: Error?) -> Void {
         if error == nil {
             let queryItems = URLComponents(string: callbackURL!.absoluteString)?.queryItems
-            let code = queryItems?.filter({ $0.name == "code" }).first?.value
+            let searchedCode = queryItems?.filter({ $0.name == "code" }).first?.value
 
-            AF.request("https://api.linear.app/oauth/token", method: .post, parameters: [
-                "grant_type": "authorization_code",
-                "redirect_uri": self.redirectUri,
-                "code": code!,
-                "client_secret": self.clientSecret,
-                "client_id": self.clientId
-            ], headers: [
-                "content-type":"application/x-www-form-urlencoded"
-            ]).responseJSON { response in
-                switch response.result {
-                    case .success(let JSON):
-                        let response = JSON as! NSDictionary
-                        debugPrint(response)
-                        if let accessToken = response.object(forKey: "access_token") {
-                            let store = ApolloStore(cache: InMemoryNormalizedCache())
-                            let provider = LegacyInterceptorProvider(store: store)
-                            let requestChain = RequestChainNetworkTransport(interceptorProvider: provider, endpointURL: URL(string: "https://api.linear.app/graphql")!, additionalHeaders: [
-                                "authorization": "Bearer \(accessToken)"
-                            ])
-                            self.store.send(.setApolloClient(data: ApolloClient(networkTransport: requestChain, store: store)))
-                            self.store.send(.setView(data: ApplicationView.Dashboard))
-                        } else {
+            if let code = searchedCode {
+                AF.request("https://api.linear.app/oauth/token", method: .post, parameters: [
+                    "grant_type": "authorization_code",
+                    "redirect_uri": self.redirectUri,
+                    "code": code,
+                    "client_secret": self.clientSecret,
+                    "client_id": self.clientId
+                ], headers: [
+                    "content-type":"application/x-www-form-urlencoded"
+                ]).responseJSON { response in
+                    switch response.result {
+                        case .success(let JSON):
+                            let response = JSON as! NSDictionary
+                            if let accessToken = response.object(forKey: "access_token") {
+                                let store = ApolloStore(cache: InMemoryNormalizedCache())
+                                let provider = LegacyInterceptorProvider(store: store)
+                                let requestChain = RequestChainNetworkTransport(interceptorProvider: provider, endpointURL: URL(string: "https://api.linear.app/graphql")!, additionalHeaders: [
+                                    "authorization": "Bearer \(accessToken)"
+                                ])
+                                self.store.send(.setApolloClient(data: ApolloClient(networkTransport: requestChain, store: store)))
+                                self.store.send(.setView(data: ApplicationView.Dashboard))
+                            } else {
+                                self.showUnableToSignIn()
+                            }
+                        case .failure:
                             self.showUnableToSignIn()
-                        }
-                    case .failure:
-                        self.showUnableToSignIn()
+                    }
                 }
+            } else {
+                self.showUnableToSignIn()
             }
         }
 

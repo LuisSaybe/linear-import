@@ -55,7 +55,7 @@ class CSVHelper {
             }
         }
     }
-
+    
     func writeTeamIssuesToURL(url: URL, teamId: String, onUpdate: @escaping (CompletionInformation) -> Void, completionHandler: @escaping (Result<CompletionInformation, WriteIssuesError>) -> Void) {
         guard let stream = OutputStream(url: url, append: true) else {
             completionHandler(.failure(.unableToCreateStream))
@@ -72,7 +72,7 @@ class CSVHelper {
         }
 
         do {
-            try csv.write(row: ["id", "title", "description", "estimate"])
+            try csv.write(row: ["id", "identifier", "title", "description", "priority", "estimate", "state", "labels", "assignee", "assigneeName"])
         } catch {
             completionHandler(.failure(.unableToWriteHeader))
             return
@@ -83,7 +83,9 @@ class CSVHelper {
 
         getAllTeamIssues(teamId: teamId, issueHandler: { issue in
             let estimateColumn: String
-
+            let priorityColumn = String(format: "%.0f", issue.priority)
+            let labels = issue.labels.nodes.map { $0.id }.joined(separator: ",")
+            
             if let estimate: Double = issue.estimate {
                 estimateColumn = String(format: "%.1f", estimate)
             } else {
@@ -91,7 +93,7 @@ class CSVHelper {
             }
 
             do {
-                try csv.write(row: [issue.id, issue.title, issue.description ?? "", estimateColumn])
+                try csv.write(row: [issue.id, issue.identifier, issue.title, issue.description ?? "", priorityColumn, estimateColumn, issue.state.id, labels, issue.assignee?.id ?? "", issue.assignee?.name ?? ""])
                 successCount += 1
             } catch {
                 failureCount += 1
@@ -114,31 +116,14 @@ class CSVHelper {
             }
         })
     }
-
-    func createWritableCSVFile(completionHandler: @escaping (Result<URL, CreateCSVError>) -> Void) {
-        let openPanel = NSOpenPanel()
-        openPanel.allowsMultipleSelection = false
-        openPanel.canChooseDirectories = true
-        openPanel.canCreateDirectories = true
-        openPanel.canChooseFiles = false
-        openPanel.begin { (result) -> Void in
-            if result.rawValue == NSApplication.ModalResponse.OK.rawValue {
-                let dateformat = DateFormatter()
-                dateformat.dateFormat = "yyyy-MM-dd-HH-mm-ss"
-                let fileName = dateformat.string(from: Date())
-
-                let filePath = URL(string: openPanel.url!.absoluteString)!.appendingPathComponent("linear-issues-\(fileName)", isDirectory: false).appendingPathExtension("csv")
-                let created = FileManager.default.createFile(atPath: filePath.path, contents: "".data(using: .utf8))
-
-                if created {
-                    completionHandler(.success(filePath))
-                } else {
-                    completionHandler(.failure(.unableToCreateFile))
-                }
-            } else {
-                completionHandler(.failure(.userDecline))
-            }
-        }
+    
+    static func createWritableCSVFile(url: URL) -> URL? {
+        let dateformat = DateFormatter()
+        dateformat.dateFormat = "yyyy-MM-dd-HH-mm-ss"
+        let fileName = dateformat.string(from: Date())
+        let filePath = URL(string: url.absoluteString)!.appendingPathComponent("linear-issues-\(fileName)", isDirectory: false).appendingPathExtension("csv")
+        let created = FileManager.default.createFile(atPath: filePath.path, contents: "".data(using: .utf8))
+        return created ? filePath : nil
     }
 
     func getRowsHeaderCellsWithSimilarValue(reader: CSVReader, target: String) -> [String] {
@@ -153,6 +138,48 @@ class CSVHelper {
         }
         
         return result;
+    }
+
+    func getValue(row: CSVReader, header: String) -> String? {
+        if let header = self.getRowsHeaderCellsWithSimilarValue(reader: row, target: header).first {
+            return row[header]
+        }
+        
+        return nil
+    }
+
+    func isValidRow(row: CSVReader) -> Bool {
+        let title = getValue(row: row, header: "title")
+        
+        if let value = getValue(row: row, header: "priority") {
+            return self.isValidPriority(value: value)
+        }
+
+        if title == nil || title == "" {
+            return false
+        }
+        
+        return true
+    }
+
+    func isValidPriority(value: String?) -> Bool {
+        if let text = value, text.count > 0 {
+            if let priorityNumber = Int(text) {
+                return priorityNumber > -1 && priorityNumber < 5
+            }
+
+            return false
+        }
+        
+        return true
+    }
+
+    func getLabelIds(row: CSVReader) -> [String] {
+        if let labelIds = getValue(row: row, header: "labels") {
+            return labelIds.components(separatedBy: ",")
+        }
+
+        return []
     }
 
     func uploadToLinearTeam(teamId : String, url: URL, onUpdate: @escaping (CompletionInformation) -> Void, completionHandler: @escaping (Result<CompletionInformation, UploadErrors>) -> Void) {
@@ -170,8 +197,6 @@ class CSVHelper {
         var successCount = 0
 
         let titleRows = getRowsHeaderCellsWithSimilarValue(reader: reader, target: "title")
-        let descriptionKey = getRowsHeaderCellsWithSimilarValue(reader: reader, target: "description").first
-        let priorityKey = getRowsHeaderCellsWithSimilarValue(reader: reader, target: "priority").first
 
         if titleRows.count != 1 {
             completionHandler(.failure(.missingUniqueTitleColumn))
@@ -187,31 +212,46 @@ class CSVHelper {
                 return
             }
 
-            let title = reader[titleRows.first ?? "title"]
-            let description = descriptionKey == nil ? "" : reader[descriptionKey!]
-            var priority: Int? = nil
+            if self.isValidRow(row: reader) {
+                let title = self.getValue(row: reader, header: "title") ?? ""
+                let description = self.getValue(row: reader, header: "description") ?? ""
+                let priority = Int(self.getValue(row: reader, header: "priority") ?? "") ?? 0
+                let stateId = self.getValue(row: reader, header: "state") ?? nil
+                let assigneeId = self.getValue(row: reader, header: "assignee") ?? nil
+                let labelIds = self.getLabelIds(row: reader)
 
-            if let key = priorityKey {
-                if let cellString = reader[key],
-                   let priorityNumber = Int(cellString),
-                   priorityNumber > -1 && priorityNumber < 5 {
-                    priority = priorityNumber
-                }
-            }
-
-            self.client.perform(mutation: CreateIssueMutation(teamId: teamId, title: title!, description: description, priority: priority)) { result in
-                switch result {
-                    case .success(let result):
-                        if let errors = result.errors {
+                self.client.perform(mutation: CreateIssueMutation(
+                    teamId: teamId,
+                    title: title,
+                    description: description,
+                    priority:priority,
+                    labelIds:labelIds,
+                    stateId: stateId,
+                    assigneeId: assigneeId
+                )) { result in
+                    switch result {
+                        case .success(let result):
+                            if let errors = result.errors {
+                                failureCount += 1
+                                debugPrint(errors)
+                            } else {
+                                successCount += 1
+                            }
+                        case .failure(let error):
+                            debugPrint(error)
                             failureCount += 1
-                            debugPrint(errors)
-                        } else {
-                            successCount += 1
-                        }
-                    case .failure:
-                        failureCount += 1
-                }
+                    }
 
+                    onUpdate(CompletionInformation(
+                        failureCount: failureCount,
+                        successCount: successCount
+                    ))
+                    
+                    processNextRow(reader: reader)
+                }
+            } else {
+                failureCount += 1
+                
                 onUpdate(CompletionInformation(
                     failureCount: failureCount,
                     successCount: successCount
@@ -220,7 +260,7 @@ class CSVHelper {
                 processNextRow(reader: reader)
             }
         }
-
+        
         processNextRow(reader: reader)
     }
 }

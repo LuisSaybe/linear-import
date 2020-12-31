@@ -20,6 +20,7 @@ class SignInViewModel: NSObject, ASWebAuthenticationPresentationContextProviding
     func attemptSignIn() {
         let authURL = URL(string: "https://linear.app/oauth/authorize?client_id=\(clientId)&response_type=code&redirect_uri=\(redirectUri)&scope=read,write")!
         let session = ASWebAuthenticationSession(url: authURL, callbackURLScheme: redirectScheme, completionHandler: self.completionHandler)
+        session.prefersEphemeralWebBrowserSession = true
         session.presentationContextProvider = self
         session.start()
     }

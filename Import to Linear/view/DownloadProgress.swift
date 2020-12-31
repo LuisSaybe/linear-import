@@ -7,7 +7,7 @@ struct DownloadProgress: View {
     init(teamId: String) {
         self.teamId = teamId
     }
-    
+
     func getViewState() -> TeamViewState? {
         if let viewState = self.store.state.teamViewState[self.teamId] {
             return viewState
@@ -36,9 +36,10 @@ struct DownloadProgress: View {
         if let viewState = self.getViewState(),
            let url = viewState.downloadUrl,
            let client = self.store.state.apolloClient {
-            let helper = CSVHelper(client: client)
-
             if viewState.isDownloading == nil {
+                client.clearCache()
+                let helper = CSVHelper(client: client)
+
                 helper.writeTeamIssuesToURL(url: url, teamId: teamId, onUpdate: { data in
                     if let nextViewState = self.getNextProgressState(data: data, isDownloading: true) {
                         self.store.send(.updateTeamViewState(teamId: self.teamId, data: nextViewState))
@@ -47,8 +48,12 @@ struct DownloadProgress: View {
                     switch result {
                         case.success(let completionInformation):
                             debugPrint(completionInformation)
-                        case .failure(let error):
-                            print(error)
+                        case .failure:
+                            let alert = NSAlert()
+                            alert.informativeText = "Sorry we are not able to the selected folder. Please try again"
+                            alert.alertStyle = .warning
+                            alert.addButton(withTitle: "Ok")
+                            alert.runModal()
                     }
 
                     if let currentViewState = self.getViewState(),
@@ -70,27 +75,17 @@ struct DownloadProgress: View {
                     ProgressView().padding()
                 } else {
                     Text("Job Complete").font(.title2).padding()
-                    Button(action: {
+                    Button("Return to start menu", action: {
                         self.store.send(.updateTeamViewState(teamId: self.teamId, data: TeamViewState.getDefault()))
-                    }) {
-                        Text("Return to start menu")
-                    }.padding()
+                    }).padding()
                 }
             } else {
-                Text("Unable to determine currentl view state")
-                Button(action: {
+                Text("Unable to determine current view state")
+                Button("Return to start menu", action: {
                     self.store.send(.setCurrentlySelectedTeamId(teamId: nil))
-                }) {
-                    Text("Return to start menu")
-                }
+                })
             }
         }.frame(maxHeight: .infinity)
         .onAppear(perform: self.onAppear)
     }
 }
-
-
-
-
-
-
