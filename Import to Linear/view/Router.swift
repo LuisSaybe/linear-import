@@ -8,7 +8,7 @@ struct Router: View {
         if store.state.currentView == ApplicationView.Dashboard {
             DashboardView()
         } else {
-            LoginView()
+            EnterTokenView()
         }
     }
 }

@@ -75,9 +75,7 @@ struct LoginView: View {
                 Text("app that helps you import and export your linear issues from and to .csv files.").font(.title2)
             }
             Text("Log into your linear account to get started.").font(.title2)
-            Button(action: self.onLoginClick, label: {
-                Text("Login")
-            })
+            Button("Start", action: self.onLoginClick)
             .disabled(self.loginButtonDisabled)
         }
     }

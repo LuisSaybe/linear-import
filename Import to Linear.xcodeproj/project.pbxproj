@@ -21,6 +21,7 @@
 		A03223BF258E861500B4F862 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03223BE258E861500B4F862 /* API.swift */; };
 		A03223C1258E862600B4F862 /* schema.json in Resources */ = {isa = PBXBuildFile; fileRef = A03223C0258E862600B4F862 /* schema.json */; };
 		A03223C3258E8FFA00B4F862 /* GetTeamIssues.graphql in Resources */ = {isa = PBXBuildFile; fileRef = A03223C2258E8FFA00B4F862 /* GetTeamIssues.graphql */; };
+		A035C10F25A4CF8A007CE5A6 /* EnterTokenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A035C10E25A4CF8A007CE5A6 /* EnterTokenView.swift */; };
 		A07EF6202592D5E1001DD2CC /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = A07EF61F2592D5E1001DD2CC /* Store.swift */; };
 		A07EF6242592E019001DD2CC /* TeamsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A07EF6232592E019001DD2CC /* TeamsView.swift */; };
 		A07EF6262592E0CF001DD2CC /* TeamView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A07EF6252592E0CF001DD2CC /* TeamView.swift */; };
@@ -62,6 +63,7 @@
 		A03223BE258E861500B4F862 /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		A03223C0258E862600B4F862 /* schema.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = schema.json; sourceTree = "<group>"; };
 		A03223C2258E8FFA00B4F862 /* GetTeamIssues.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = GetTeamIssues.graphql; sourceTree = "<group>"; };
+		A035C10E25A4CF8A007CE5A6 /* EnterTokenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterTokenView.swift; sourceTree = "<group>"; };
 		A07EF61F2592D5E1001DD2CC /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
 		A07EF6232592E019001DD2CC /* TeamsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamsView.swift; sourceTree = "<group>"; };
 		A07EF6252592E0CF001DD2CC /* TeamView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamView.swift; sourceTree = "<group>"; };
@@ -71,7 +73,7 @@
 		A0870F372597F9480041FEFB /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
 		A0C2787B258BDA450040C434 /* CsvHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CsvHelper.swift; sourceTree = "<group>"; };
 		A0CAD2E125928B71006AE000 /* SignInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewModel.swift; sourceTree = "<group>"; };
-		A0D6015F258AB78800740487 /* Import to Linear.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Import to Linear.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A0D6015F258AB78800740487 /* Linear Tools.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Linear Tools.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A0D60162258AB78800740487 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		A0D60164258AB78800740487 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		A0D60166258AB78A00740487 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -121,6 +123,7 @@
 				A02F60D625996410008AB9EA /* ChooseUploadFileStep.swift */,
 				A02F60D8259966C3008AB9EA /* DownloadProgress.swift */,
 				A02F60DA259966F0008AB9EA /* UploadProgress.swift */,
+				A035C10E25A4CF8A007CE5A6 /* EnterTokenView.swift */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -144,7 +147,7 @@
 		A0D60160258AB78800740487 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				A0D6015F258AB78800740487 /* Import to Linear.app */,
+				A0D6015F258AB78800740487 /* Linear Tools.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -180,9 +183,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		A0D6015E258AB78800740487 /* Import to Linear */ = {
+		A0D6015E258AB78800740487 /* Linear Tools */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = A0D6016F258AB78A00740487 /* Build configuration list for PBXNativeTarget "Import to Linear" */;
+			buildConfigurationList = A0D6016F258AB78A00740487 /* Build configuration list for PBXNativeTarget "Linear Tools" */;
 			buildPhases = (
 				A03223BD258E81BC00B4F862 /* GraphQL Codegen */,
 				A0D6015B258AB78800740487 /* Sources */,
@@ -194,7 +197,7 @@
 			);
 			dependencies = (
 			);
-			name = "Import to Linear";
+			name = "Linear Tools";
 			packageProductDependencies = (
 				A0D60174258AC87800740487 /* CSV */,
 				A0D60187258AD19000740487 /* Alamofire */,
@@ -204,7 +207,7 @@
 				A03223B8258E6C5000B4F862 /* ApolloCodegenLib */,
 			);
 			productName = "Import to Linear";
-			productReference = A0D6015F258AB78800740487 /* Import to Linear.app */;
+			productReference = A0D6015F258AB78800740487 /* Linear Tools.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -239,7 +242,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				A0D6015E258AB78800740487 /* Import to Linear */,
+				A0D6015E258AB78800740487 /* Linear Tools */,
 			);
 		};
 /* End PBXProject section */
@@ -303,6 +306,7 @@
 				A02F60D725996410008AB9EA /* ChooseUploadFileStep.swift in Sources */,
 				A02F60D9259966C3008AB9EA /* DownloadProgress.swift in Sources */,
 				A07EF6262592E0CF001DD2CC /* TeamView.swift in Sources */,
+				A035C10F25A4CF8A007CE5A6 /* EnterTokenView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -432,7 +436,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Import to Linear/Import_to_Linear.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_ASSET_PATHS = "\"Import to Linear/Preview Content\"";
 				DEVELOPMENT_TEAM = DRQ8M77NK8;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -457,7 +461,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Import to Linear/Import_to_Linear.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_ASSET_PATHS = "\"Import to Linear/Preview Content\"";
 				DEVELOPMENT_TEAM = DRQ8M77NK8;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -486,7 +490,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A0D6016F258AB78A00740487 /* Build configuration list for PBXNativeTarget "Import to Linear" */ = {
+		A0D6016F258AB78A00740487 /* Build configuration list for PBXNativeTarget "Linear Tools" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A0D60170258AB78A00740487 /* Debug */,
