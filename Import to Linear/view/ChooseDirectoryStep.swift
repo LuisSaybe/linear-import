@@ -11,7 +11,7 @@ struct ChooseDirectoryStep: View {
 
     func startDownload() {
         if let folder = self.folder,
-           let url = CSVHelper.createWritableCSVFile(url:folder) {
+           let url = CSVHelper.createWritableCSVFile(url:folder, prefix: "linear-issues") {
             let data = TeamViewState(
                 step: .DownloadProgress,
                 isDownloading: nil,
@@ -19,7 +19,8 @@ struct ChooseDirectoryStep: View {
                 isUploading: nil,
                 uploadCompletionInformation: CompletionInformation(failureCount: 0, successCount: 0),
                 downloadUrl: url,
-                uploadUrl: nil
+                uploadUrl: nil,
+                uploadRowErrors: []
             )
             self.store.send(.updateTeamViewState(teamId: self.teamId, data: data))
         } else {

@@ -1,9 +1,10 @@
 import SwiftUI
+import CSV
 
 struct UploadProgress: View {
     @EnvironmentObject var store: ApplicationStore<ApplicationState, ApplicationAction>
     let teamId: String
-    @State var showUnableToUseFile = false
+    @State var uploadError: UploadErrors? = nil
 
     init(teamId: String) {
         self.teamId = teamId
@@ -17,6 +18,68 @@ struct UploadProgress: View {
         return nil
     }
 
+    func onDownloadErrors() {
+        let openPanel = NSOpenPanel()
+        openPanel.allowsMultipleSelection = false
+        openPanel.canChooseDirectories = true
+        openPanel.canCreateDirectories = true
+        openPanel.canChooseFiles = false
+        openPanel.begin { (result) -> Void in
+            let onUnableToDownload = {
+                let alert = NSAlert()
+                alert.informativeText = "Sorry, we were not able to download errors from this upload, please choose a different directory."
+                alert.alertStyle = .warning
+                alert.addButton(withTitle: "Ok")
+                alert.runModal()
+            }
+            
+            if result.rawValue == NSApplication.ModalResponse.OK.rawValue {
+                if let directory = openPanel.url,
+                   let errorUrl = CSVHelper.createWritableCSVFile(url: directory, prefix: "errors-linear-upload") {
+                    var csv: CSVWriter? = nil
+                    
+                    do  {
+                        if let stream = OutputStream(url: errorUrl, append: true) {
+                            csv = try CSVWriter(stream: stream)
+                        }
+                    } catch {
+                        return
+                    }
+
+                    if let writer = csv,
+                       let viewState = self.getViewState() {
+                        try? writer.write(row: ["row", "title", "errors"])
+
+                        for error in viewState.uploadRowErrors {
+                            try? writer.write(row: [String(error.rowIndex), error.title, error.errors.map { $0.localizedDescription }.joined(separator: ",")])
+                        }
+                    } else {
+                        onUnableToDownload()
+                    }
+                } else {
+                    onUnableToDownload()
+                }
+            }
+        }
+    }
+    
+    func appendUploadRowError(error: UploadRowError) {
+        if let viewState = self.getViewState() {
+            let data = TeamViewState(
+                step: viewState.step,
+                isDownloading: viewState.isDownloading,
+                downloadCompletionInformation: viewState.downloadCompletionInformation,
+                isUploading: viewState.isUploading,
+                uploadCompletionInformation: viewState.uploadCompletionInformation,
+                downloadUrl: viewState.downloadUrl,
+                uploadUrl: viewState.uploadUrl,
+                uploadRowErrors: viewState.uploadRowErrors + [error]
+            )
+
+            self.store.send(.updateTeamViewState(teamId: self.teamId, data: data))
+        }
+    }
+    
     func getNextProgressState(data: CompletionInformation, isUploading: Bool) -> TeamViewState? {
         if let viewState = self.getViewState() {
             return TeamViewState(
@@ -26,7 +89,8 @@ struct UploadProgress: View {
                 isUploading: isUploading,
                 uploadCompletionInformation: data,
                 downloadUrl: viewState.downloadUrl,
-                uploadUrl: viewState.uploadUrl
+                uploadUrl: viewState.uploadUrl,
+                uploadRowErrors: viewState.uploadRowErrors
             )
         }
 
@@ -41,7 +105,9 @@ struct UploadProgress: View {
             if viewState.isUploading == nil {
                 let helper = CSVHelper(client: client)
 
-                helper.uploadToLinearTeam(teamId: self.teamId, url: url, onUpdate: { uploadProgress in
+                helper.uploadToLinearTeam(teamId: self.teamId, url: url, onError: { uploadError in
+                    self.appendUploadRowError(error: uploadError)
+                }, onUpdate: { uploadProgress in
                     if let data = self.getNextProgressState(data: uploadProgress, isUploading: true) {
                         self.store.send(.updateTeamViewState(teamId: self.teamId, data: data))
                     }
@@ -49,8 +115,8 @@ struct UploadProgress: View {
                     switch result {
                         case.success(let information):
                             debugPrint(information)
-                        case .failure:
-                            self.showUnableToUseFile = true
+                        case .failure(let error):
+                            self.uploadError = error
                     }
 
                     if let viewState = self.getViewState(),
@@ -64,8 +130,13 @@ struct UploadProgress: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
-            if self.showUnableToUseFile {
-                Text("Unable to use selected csv file, please try another file.").font(.title3)
+            if let error = self.uploadError {
+                switch error {
+                    case .canNotCreateCSVReader:
+                        Text("Sorry, we are not able to open your selected file, please try another file.").font(.title3)
+                    case .missingUniqueTitleColumn:
+                        Text("Sorry, the file you chose does not have a unique Title column, please try another file.").font(.title3)
+                }
                 Button("Return to start menu", action: {
                     self.store.send(.updateTeamViewState(teamId: self.teamId, data: TeamViewState.getDefault()))
                 }).font(.title3)
@@ -77,9 +148,14 @@ struct UploadProgress: View {
                     ProgressView().padding()
                 } else {
                     Text("Job Complete").font(.title3)
-                    Button("Return to start menu", action: {
-                        self.store.send(.updateTeamViewState(teamId: self.teamId, data: TeamViewState.getDefault()))
-                    })
+                    HStack {
+                        if !viewState.uploadRowErrors.isEmpty {
+                            Button("Download errors", action: self.onDownloadErrors)
+                        }
+                        Button("Return to start menu", action: {
+                            self.store.send(.updateTeamViewState(teamId: self.teamId, data: TeamViewState.getDefault()))
+                        })
+                    }
                 }
             } else {
                 Text("Unable to determine currently selected team")

@@ -18,7 +18,7 @@ struct Application: App {
     var body: some Scene {
         WindowGroup {
             Router()
-                .frame(minWidth: 800, maxWidth: .infinity, minHeight: 400, maxHeight: .infinity)
+                .frame(minWidth: 1000, maxWidth: .infinity, minHeight: 400, maxHeight: .infinity)
                 .environmentObject(self.store)
         }
     }

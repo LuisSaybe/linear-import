@@ -15,7 +15,8 @@ struct TeamViewState {
     let uploadCompletionInformation: CompletionInformation
     let downloadUrl: URL?
     let uploadUrl: URL?
-    
+    let uploadRowErrors: [UploadRowError]
+
     static func getDefault() -> TeamViewState {
         return TeamViewState(
             step: .Start,
@@ -24,7 +25,8 @@ struct TeamViewState {
             isUploading: false,
             uploadCompletionInformation: CompletionInformation(failureCount: 0, successCount: 0),
             downloadUrl: nil,
-            uploadUrl: nil
+            uploadUrl: nil,
+            uploadRowErrors: []
         )
     }
 }
@@ -53,6 +55,7 @@ enum ApplicationAction {
     case setView(data: ApplicationView)
     case setCurrentlySelectedTeamId(teamId: String?)
     case updateTeamViewState(teamId: String, data: TeamViewState)
+    case reset
 }
 
 struct ApplicationState {
@@ -74,6 +77,12 @@ func applicationReducer(
     action: ApplicationAction
 ) -> AnyPublisher<ApplicationAction, Never>? {
     switch action {
+        case .reset:
+            state.apolloClient = nil
+            state.currentSelectedTeamId = nil
+            state.teams = []
+            state.teamViewState = [:]
+            state.currentView = .Root
         case let .setApolloClient(client):
             state.apolloClient = client
         case let .setTeams(teams):
@@ -88,7 +97,8 @@ func applicationReducer(
                         isUploading: nil,
                         uploadCompletionInformation: CompletionInformation(failureCount: 0, successCount: 0),
                         downloadUrl: nil,
-                        uploadUrl: nil
+                        uploadUrl: nil,
+                        uploadRowErrors: []
                     )
                 }
             }

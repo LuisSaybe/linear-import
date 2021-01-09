@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A02386AE25A66AF200461BA1 /* schema.json in Resources */ = {isa = PBXBuildFile; fileRef = A02386AD25A66AF200461BA1 /* schema.json */; };
 		A02F60D1259960A8008AB9EA /* TeamScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A02F60D0259960A8008AB9EA /* TeamScrollView.swift */; };
 		A02F60D3259960EA008AB9EA /* TeamWorkflowHome.swift in Sources */ = {isa = PBXBuildFile; fileRef = A02F60D2259960EA008AB9EA /* TeamWorkflowHome.swift */; };
 		A02F60D525996337008AB9EA /* ChooseDirectoryStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = A02F60D425996337008AB9EA /* ChooseDirectoryStep.swift */; };
@@ -19,7 +20,6 @@
 		A03223B9258E6C5000B4F862 /* ApolloCodegenLib in Frameworks */ = {isa = PBXBuildFile; productRef = A03223B8258E6C5000B4F862 /* ApolloCodegenLib */; };
 		A03223BC258E806100B4F862 /* GetTeams.graphql in Resources */ = {isa = PBXBuildFile; fileRef = A03223BB258E806100B4F862 /* GetTeams.graphql */; };
 		A03223BF258E861500B4F862 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03223BE258E861500B4F862 /* API.swift */; };
-		A03223C1258E862600B4F862 /* schema.json in Resources */ = {isa = PBXBuildFile; fileRef = A03223C0258E862600B4F862 /* schema.json */; };
 		A03223C3258E8FFA00B4F862 /* GetTeamIssues.graphql in Resources */ = {isa = PBXBuildFile; fileRef = A03223C2258E8FFA00B4F862 /* GetTeamIssues.graphql */; };
 		A035C10F25A4CF8A007CE5A6 /* EnterTokenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A035C10E25A4CF8A007CE5A6 /* EnterTokenView.swift */; };
 		A07EF6202592D5E1001DD2CC /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = A07EF61F2592D5E1001DD2CC /* Store.swift */; };
@@ -53,6 +53,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		A02386AD25A66AF200461BA1 /* schema.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = schema.json; sourceTree = "<group>"; };
 		A02F60D0259960A8008AB9EA /* TeamScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamScrollView.swift; sourceTree = "<group>"; };
 		A02F60D2259960EA008AB9EA /* TeamWorkflowHome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamWorkflowHome.swift; sourceTree = "<group>"; };
 		A02F60D425996337008AB9EA /* ChooseDirectoryStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseDirectoryStep.swift; sourceTree = "<group>"; };
@@ -61,7 +62,6 @@
 		A02F60DA259966F0008AB9EA /* UploadProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadProgress.swift; sourceTree = "<group>"; };
 		A03223BB258E806100B4F862 /* GetTeams.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = GetTeams.graphql; sourceTree = "<group>"; };
 		A03223BE258E861500B4F862 /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
-		A03223C0258E862600B4F862 /* schema.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = schema.json; sourceTree = "<group>"; };
 		A03223C2258E8FFA00B4F862 /* GetTeamIssues.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = GetTeamIssues.graphql; sourceTree = "<group>"; };
 		A035C10E25A4CF8A007CE5A6 /* EnterTokenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterTokenView.swift; sourceTree = "<group>"; };
 		A07EF61F2592D5E1001DD2CC /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
@@ -73,7 +73,7 @@
 		A0870F372597F9480041FEFB /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
 		A0C2787B258BDA450040C434 /* CsvHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CsvHelper.swift; sourceTree = "<group>"; };
 		A0CAD2E125928B71006AE000 /* SignInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewModel.swift; sourceTree = "<group>"; };
-		A0D6015F258AB78800740487 /* Linear Tools.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Linear Tools.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A0D6015F258AB78800740487 /* Saturn.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Saturn.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A0D60162258AB78800740487 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		A0D60164258AB78800740487 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		A0D60166258AB78A00740487 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -147,7 +147,7 @@
 		A0D60160258AB78800740487 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				A0D6015F258AB78800740487 /* Linear Tools.app */,
+				A0D6015F258AB78800740487 /* Saturn.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -159,8 +159,8 @@
 				A0870F3025955B020041FEFB /* view */,
 				A0870F2D25955AE70041FEFB /* store */,
 				A0D60162258AB78800740487 /* App.swift */,
-				A03223C0258E862600B4F862 /* schema.json */,
 				A03223BE258E861500B4F862 /* API.swift */,
+				A02386AD25A66AF200461BA1 /* schema.json */,
 				A0D60166258AB78A00740487 /* Assets.xcassets */,
 				A0D6016B258AB78A00740487 /* Info.plist */,
 				A0D6016C258AB78A00740487 /* Import_to_Linear.entitlements */,
@@ -183,9 +183,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		A0D6015E258AB78800740487 /* Linear Tools */ = {
+		A0D6015E258AB78800740487 /* Saturn */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = A0D6016F258AB78A00740487 /* Build configuration list for PBXNativeTarget "Linear Tools" */;
+			buildConfigurationList = A0D6016F258AB78A00740487 /* Build configuration list for PBXNativeTarget "Saturn" */;
 			buildPhases = (
 				A03223BD258E81BC00B4F862 /* GraphQL Codegen */,
 				A0D6015B258AB78800740487 /* Sources */,
@@ -197,7 +197,7 @@
 			);
 			dependencies = (
 			);
-			name = "Linear Tools";
+			name = Saturn;
 			packageProductDependencies = (
 				A0D60174258AC87800740487 /* CSV */,
 				A0D60187258AD19000740487 /* Alamofire */,
@@ -207,7 +207,7 @@
 				A03223B8258E6C5000B4F862 /* ApolloCodegenLib */,
 			);
 			productName = "Import to Linear";
-			productReference = A0D6015F258AB78800740487 /* Linear Tools.app */;
+			productReference = A0D6015F258AB78800740487 /* Saturn.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -224,7 +224,7 @@
 					};
 				};
 			};
-			buildConfigurationList = A0D6015A258AB78800740487 /* Build configuration list for PBXProject "Import to Linear" */;
+			buildConfigurationList = A0D6015A258AB78800740487 /* Build configuration list for PBXProject "Saturn" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -242,7 +242,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				A0D6015E258AB78800740487 /* Linear Tools */,
+				A0D6015E258AB78800740487 /* Saturn */,
 			);
 		};
 /* End PBXProject section */
@@ -252,11 +252,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A03223C1258E862600B4F862 /* schema.json in Resources */,
 				A03223C3258E8FFA00B4F862 /* GetTeamIssues.graphql in Resources */,
 				A03223BC258E806100B4F862 /* GetTeams.graphql in Resources */,
 				A0D6016A258AB78A00740487 /* Preview Assets.xcassets in Resources */,
 				A0D60167258AB78A00740487 /* Assets.xcassets in Resources */,
+				A02386AE25A66AF200461BA1 /* schema.json in Resources */,
 				A0870F332597C0020041FEFB /* CreateIssue.graphql in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -436,7 +436,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Import to Linear/Import_to_Linear.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_ASSET_PATHS = "\"Import to Linear/Preview Content\"";
 				DEVELOPMENT_TEAM = DRQ8M77NK8;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -447,6 +447,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				MARKETING_VERSION = "1.0 ";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.luissaybe.linear-tools";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -461,7 +462,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Import to Linear/Import_to_Linear.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_ASSET_PATHS = "\"Import to Linear/Preview Content\"";
 				DEVELOPMENT_TEAM = DRQ8M77NK8;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -472,6 +473,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				MARKETING_VERSION = "1.0 ";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.luissaybe.linear-tools";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -481,7 +483,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		A0D6015A258AB78800740487 /* Build configuration list for PBXProject "Import to Linear" */ = {
+		A0D6015A258AB78800740487 /* Build configuration list for PBXProject "Saturn" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A0D6016D258AB78A00740487 /* Debug */,
@@ -490,7 +492,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A0D6016F258AB78A00740487 /* Build configuration list for PBXNativeTarget "Linear Tools" */ = {
+		A0D6016F258AB78A00740487 /* Build configuration list for PBXNativeTarget "Saturn" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A0D60170258AB78A00740487 /* Debug */,

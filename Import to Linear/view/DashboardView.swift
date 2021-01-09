@@ -18,12 +18,9 @@ struct DashboardView: View {
                 VStack {
                     HStack {
                         Spacer()
-                        Button(action: {
-                            self.store.send(.setApolloClient(data: nil))
-                            self.store.send(.setView(data: .Root))
-                        }) {
-                            Text("Logout").font(.title)
-                        }.buttonStyle(PlainButtonStyle())
+                        Button("Logout", action: {
+                            self.store.send(.reset)
+                        }).buttonStyle(PlainButtonStyle()).font(.title)
                     }.padding()
                     Divider()
                     Text("Select a team to start")

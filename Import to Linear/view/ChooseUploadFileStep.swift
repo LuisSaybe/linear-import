@@ -50,7 +50,7 @@ struct ChooseUploadFileStep: View {
             }
         }
     }
-    
+
     func onUploadStart() {
         let data = TeamViewState(
             step: .UploadProgress,
@@ -59,7 +59,8 @@ struct ChooseUploadFileStep: View {
             isUploading: nil,
             uploadCompletionInformation: CompletionInformation(failureCount: 0, successCount: 0),
             downloadUrl: nil,
-            uploadUrl: self.fileToUpload
+            uploadUrl: self.fileToUpload,
+            uploadRowErrors: []
         )
 
         self.store.send(.updateTeamViewState(teamId: self.teamId, data: data))

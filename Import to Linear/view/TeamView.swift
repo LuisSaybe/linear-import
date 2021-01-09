@@ -14,12 +14,9 @@ struct TeamView: View {
                     Text(team.name)
                         .font(.title)
                     Spacer()
-                    Button(action: {
-                        self.store.send(.setApolloClient(data: nil))
-                        self.store.send(.setView(data: .Root))
-                    }) {
-                        Text("Logout").font(.title)
-                    }.buttonStyle(PlainButtonStyle())
+                    Button("Logout", action: {
+                        self.store.send(.reset)
+                    }).buttonStyle(PlainButtonStyle()).font(.title)
                 }.padding()
                 Divider()
                 if teamStateView?.step == .UploadStart {

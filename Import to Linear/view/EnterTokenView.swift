@@ -50,17 +50,17 @@ struct EnterTokenView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
-            Text("Linear Tools").font(.title)
+            Text("Saturn").font(.title)
             HStack {
-                Text("Linear Tools is an").font(.title2)
-                Link("open source", destination: URL(string: "https://github.com/LuisSaybe/linear-import")!).font(.title2)
+                Text("Saturn is an").font(.title2)
+                Link("open source", destination: URL(string: "https://github.com/luissaybe/saturn")!).font(.title2)
                 Text("app that helps you import and export your").font(.title2)
                 Link("Linear", destination: URL(string: "https://linear.app")!).font(.title2)
                 Text("issues from and to .csv files.").font(.title2)
             }
             Text("Enter your Personal API Key from Linear -> Settings -> API to get started.").font(.title2)
             HStack(spacing: 10) {
-                TextField("nGUTf4Dvpqf121sW2yrkyvtTfvytDoJFCkf3MPwz", text: self.$key)
+                TextField("Enter your token...", text: self.$key)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .frame(maxWidth: 340)
                 Button("Start", action: self.onStartClick)

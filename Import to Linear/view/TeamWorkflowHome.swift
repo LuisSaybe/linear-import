@@ -16,7 +16,8 @@ struct TeamWorkflowHome: View {
             isUploading: false,
             uploadCompletionInformation: CompletionInformation(failureCount: 0, successCount: 0),
             downloadUrl: nil,
-            uploadUrl: nil
+            uploadUrl: nil,
+            uploadRowErrors: []
         )
     }
 

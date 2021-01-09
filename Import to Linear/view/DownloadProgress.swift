@@ -25,7 +25,8 @@ struct DownloadProgress: View {
                 isUploading: viewState.isUploading,
                 uploadCompletionInformation: viewState.uploadCompletionInformation,
                 downloadUrl: viewState.downloadUrl,
-                uploadUrl: viewState.uploadUrl
+                uploadUrl: viewState.uploadUrl,
+                uploadRowErrors: []
             )
         }
 

@@ -3,6 +3,12 @@ import Foundation
 import Apollo
 import AuthenticationServices
 
+struct UploadRowError {
+    let rowIndex: Int
+    let title: String
+    let errors: [Error]
+}
+
 enum CreateCSVError : Error {
     case unableToCreateFile
     case userDecline
@@ -117,11 +123,11 @@ class CSVHelper {
         })
     }
     
-    static func createWritableCSVFile(url: URL) -> URL? {
+    static func createWritableCSVFile(url: URL, prefix: String) -> URL? {
         let dateformat = DateFormatter()
         dateformat.dateFormat = "yyyy-MM-dd-HH-mm-ss"
-        let fileName = dateformat.string(from: Date())
-        let filePath = URL(string: url.absoluteString)!.appendingPathComponent("linear-issues-\(fileName)", isDirectory: false).appendingPathExtension("csv")
+        let dateComponent = dateformat.string(from: Date())
+        let filePath = URL(string: url.absoluteString)!.appendingPathComponent("\(prefix)-\(dateComponent)", isDirectory: false).appendingPathExtension("csv")
         let created = FileManager.default.createFile(atPath: filePath.path, contents: "".data(using: .utf8))
         return created ? filePath : nil
     }
@@ -182,7 +188,7 @@ class CSVHelper {
         return []
     }
 
-    func uploadToLinearTeam(teamId : String, url: URL, onUpdate: @escaping (CompletionInformation) -> Void, completionHandler: @escaping (Result<CompletionInformation, UploadErrors>) -> Void) {
+    func uploadToLinearTeam(teamId : String, url: URL, onError: @escaping (UploadRowError) -> Void, onUpdate: @escaping (CompletionInformation) -> Void, completionHandler: @escaping (Result<CompletionInformation, UploadErrors>) -> Void) {
         let stream = InputStream(url: url)!
         let reader: CSVReader
 
@@ -195,6 +201,7 @@ class CSVHelper {
 
         var failureCount = 0
         var successCount = 0
+        var rowIndex = 1
 
         let titleRows = getRowsHeaderCellsWithSimilarValue(reader: reader, target: "title")
 
@@ -233,7 +240,11 @@ class CSVHelper {
                         case .success(let result):
                             if let errors = result.errors {
                                 failureCount += 1
-                                debugPrint(errors)
+                                onError(UploadRowError(
+                                    rowIndex: rowIndex,
+                                    title: title,
+                                    errors:errors
+                                ))
                             } else {
                                 successCount += 1
                             }
@@ -242,6 +253,8 @@ class CSVHelper {
                             failureCount += 1
                     }
 
+                    rowIndex += 1
+                    
                     onUpdate(CompletionInformation(
                         failureCount: failureCount,
                         successCount: successCount
