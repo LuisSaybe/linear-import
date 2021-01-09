@@ -7,10 +7,6 @@ struct EnterTokenView: View {
     @EnvironmentObject var store: ApplicationStore<ApplicationState, ApplicationAction>
     @State var loginButtonDisabled: Bool = false
     @State private var key: String = ""
-    let clientId = "41555b797aea67b9144f1fe11c2469e2"
-    let redirectScheme = "com.luissaybe.linear-tools"
-    let redirectUri = "com.luissaybe.linear-tools://oauth-redirect"
-    let clientSecret = "869f8518550e1bad7907ea3d03b7dcd6"
     
     func onInvalidClient() {
         let alert = NSAlert()
